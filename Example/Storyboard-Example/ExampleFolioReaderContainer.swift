@@ -15,12 +15,21 @@ class ExampleFolioReaderContainer: FolioReaderContainer {
         super.init(coder: aDecoder)
 
         let config = FolioReaderConfig()
-        config.scrollDirection = .horizontalWithVerticalContent
-        config.shouldHideNavigationOnTap = false
+        //config.scrollDirection = .horizontalWithVerticalContent
+        config.scrollDirection = .horizontal
+        config.allowSharing = false
+        config.displayTitle = true
+        config.canChangeScrollDirection = true
+        config.scrollToTopWhenChangeChapter = true
+        //webview menu
+        config.useReaderMenuController = false
+        //hidden
+        config.shouldHideNavigationOnTap = true
 
-        // Print the chapter ID if one was clicked
-        // A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
-        // To know if a user tapped on a chapter we can listen to events on the class "chapter" and receive the id value
+
+        //Print the chapter ID if one was clicked
+        //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
+        //To know if a user tapped on a chapter we can listen to events on the class "chapter" and receive the id value
         let listener = ClassBasedOnClickListener(schemeName: "chaptertapped", querySelector: ".chapter", attributeName: "id", onClickAction: { (attributeContent: String?, touchPointRelativeToWebView: CGPoint?) in
             print("chapter with id: " + (attributeContent ?? "-") + " clicked")
         })
@@ -28,5 +37,10 @@ class ExampleFolioReaderContainer: FolioReaderContainer {
 
         guard let bookPath = Bundle.main.path(forResource: "The Silver Chair", ofType: "epub") else { return }
         setupConfig(config, epubPath: bookPath)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        self.view.backgroundColor = UIColor.green
     }
 }

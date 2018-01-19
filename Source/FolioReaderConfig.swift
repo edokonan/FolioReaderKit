@@ -150,6 +150,11 @@ open class FolioReaderConfig: NSObject {
     /// Go to saved position when open a book
     open var loadSavedPositionForCurrentBook = true
     
+    // Auto scroll To current chapter's top When Chapter Changed
+    open var scrollToTopWhenChangeChapter = false
+ 
+//    open var changePag
+    
     // MARK: Quote image share
 
     /// Custom Quote logo
@@ -237,9 +242,12 @@ open class FolioReaderConfig: NSObject {
      */
     func isDirection<T> (_ vertical: T, _ horizontal: T, _ horizontalContentVertical: T) -> T {
         switch self.scrollDirection {
-        case .vertical, .defaultVertical:       return vertical
-        case .horizontal:                       return horizontal
-        case .horizontalWithVerticalContent:    return horizontalContentVertical
+        case .vertical, .defaultVertical:
+            return vertical
+        case .horizontal:
+            return horizontal
+        case .horizontalWithVerticalContent:
+            return horizontalContentVertical
         }
     }
 }

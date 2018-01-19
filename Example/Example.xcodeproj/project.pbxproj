@@ -34,6 +34,10 @@
 		3AAA8BA81E9BB94B00A47E5A /* The Silver Chair.epub in Resources */ = {isa = PBXBuildFile; fileRef = 3AAA8B9F1E9BB94B00A47E5A /* The Silver Chair.epub */; };
 		3AAA8BA91E9BBFAF00A47E5A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3C4A3E1C3C6708009CBC8C /* MediaPlayer.framework */; };
 		3AAA8BAA1E9BBFB700A47E5A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3C4A3E1C3C6708009CBC8C /* MediaPlayer.framework */; };
+		552EC441200F374A0014F64B /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552EC440200F374A0014F64B /* SampleViewController.swift */; };
+		552EC443200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */ = {isa = PBXBuildFile; fileRef = 552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */; };
+		552EC444200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */ = {isa = PBXBuildFile; fileRef = 552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */; };
+		552EC445200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */ = {isa = PBXBuildFile; fileRef = 552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */; };
 		6E3C4A3F1C3C6708009CBC8C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3C4A3E1C3C6708009CBC8C /* MediaPlayer.framework */; };
 		751F8CF61ECD20110050A2CF /* Epub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8CF51ECD20110050A2CF /* Epub.swift */; };
 		751F8CF71ECD20110050A2CF /* Epub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8CF51ECD20110050A2CF /* Epub.swift */; };
@@ -86,6 +90,8 @@
 		3AAA8B9F1E9BB94B00A47E5A /* The Silver Chair.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Silver Chair.epub"; sourceTree = "<group>"; };
 		3CE90B4095B5C7E6237EEBDD /* Pods-FolioReaderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolioReaderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FolioReaderTests/Pods-FolioReaderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		44C24A346E8730FB52DC197B /* Pods_Storyboard_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Storyboard_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		552EC440200F374A0014F64B /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
+		552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "鳳神醫02-測字符(m)+Qrcode.epub"; sourceTree = "<group>"; };
 		5C8EADB52E1D834750CD7D23 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		6E3C4A3E1C3C6708009CBC8C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		751CA93A8AFDADE43FB75F6B /* Pods-Storyboard-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Storyboard-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Storyboard-Example/Pods-Storyboard-Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -201,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				3AAA8B7E1E9BB8B700A47E5A /* AppDelegate.swift */,
+				552EC440200F374A0014F64B /* SampleViewController.swift */,
 				3AAA8B841E9BB8B700A47E5A /* ExampleFolioReaderContainer.swift */,
 				3AAA8B801E9BB8B700A47E5A /* LaunchScreen.storyboard */,
 				3AAA8B821E9BB8B700A47E5A /* Main.storyboard */,
@@ -235,6 +242,7 @@
 		3AAA8B9D1E9BB94B00A47E5A /* Sample eBooks */ = {
 			isa = PBXGroup;
 			children = (
+				552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */,
 				3AAA8B9E1E9BB94B00A47E5A /* The Adventures Of Sherlock Holmes - Adventure I.epub */,
 				3AAA8B9F1E9BB94B00A47E5A /* The Silver Chair.epub */,
 			);
@@ -402,7 +410,7 @@
 					};
 					D12066621D65FABD006E1D18 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 99AHAA343Q;
+						DevelopmentTeam = 2MGNGJ5B88;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -438,6 +446,7 @@
 				3AAA8BA61E9BB94B00A47E5A /* The Silver Chair.epub in Resources */,
 				3AAA8BA01E9BB94B00A47E5A /* Assets.xcassets in Resources */,
 				1A42C2921C0E3883000F2137 /* Main.storyboard in Resources */,
+				552EC443200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +459,7 @@
 				3AAA8B971E9BB8CD00A47E5A /* LaunchScreen.storyboard in Resources */,
 				3AAA8BA81E9BB94B00A47E5A /* The Silver Chair.epub in Resources */,
 				3AAA8BA21E9BB94B00A47E5A /* Assets.xcassets in Resources */,
+				552EC445200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +479,7 @@
 				3AAA8B891E9BB8B700A47E5A /* Main.storyboard in Resources */,
 				3AAA8BA71E9BB94B00A47E5A /* The Silver Chair.epub in Resources */,
 				3AAA8BA11E9BB94B00A47E5A /* Assets.xcassets in Resources */,
+				552EC444200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,6 +844,7 @@
 			files = (
 				751F8CF71ECD20110050A2CF /* Epub.swift in Sources */,
 				3AAA8B861E9BB8B700A47E5A /* AppDelegate.swift in Sources */,
+				552EC441200F374A0014F64B /* SampleViewController.swift in Sources */,
 				3AAA8B8A1E9BB8B700A47E5A /* ExampleFolioReaderContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1113,10 +1125,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 99AHAA343Q;
+				DEVELOPMENT_TEAM = 2MGNGJ5B88;
 				INFOPLIST_FILE = "Storyboard-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.folioreader.example.storyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zuk.epubexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1129,10 +1141,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 99AHAA343Q;
+				DEVELOPMENT_TEAM = 2MGNGJ5B88;
 				INFOPLIST_FILE = "Storyboard-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.folioreader.example.storyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zuk.epubexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

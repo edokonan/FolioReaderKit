@@ -1303,6 +1303,13 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         present(nav, animated: true, completion: nil)
     }
 
+    @objc func showFontsMenu(){
+        self.presentFontsMenu()
+        
+    }
+    @objc func showChapterList(){
+        self.presentChapterList(UIBarButtonItem())
+    }
     /**
      Present fonts and settings menu
      */
