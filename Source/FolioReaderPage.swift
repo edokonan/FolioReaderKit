@@ -182,8 +182,8 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         return tempHtmlContent as String
     }
 
+    var ChapterNum:Int = -1
     // MARK: - UIWebView Delegate
-
     open func webViewDidFinishLoad(_ webView: UIWebView) {
         guard let webView = webView as? FolioReaderWebView else {
             return
@@ -206,12 +206,82 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
 
         let direction: ScrollDirection = self.folioReader.needsRTLChange ? .positive(withConfiguration: self.readerConfig) : .negative(withConfiguration: self.readerConfig)
 
-        if (self.folioReader.readerCenter?.pageScrollDirection == direction &&
-            self.folioReader.readerCenter?.isScrolling == true &&
-            self.readerConfig.scrollDirection != .horizontalWithVerticalContent) {
+        print("---------------------")
+        print("direction=\(direction) ")
+        print("pageScrollDirection=\((self.folioReader.readerCenter?.pageScrollDirection)!) ")
+        print("readerConfig.scrollDirection=\(self.readerConfig.scrollDirection)")
+        print("contentDirection=\(self.readerConfig.contentDirection)")
+//        if (self.folioReader.readerCenter?.pageScrollDirection == direction &&
+//            self.folioReader.readerCenter?.isScrolling == true &&
+//            self.readerConfig.scrollDirection != .horizontalWithVerticalContent) {
+//            scrollPageToBottom()
+//        }
+        
+        var moveToNextChapter = false
+        var moveToPreviousChapter = false
+        if let currentCapterNum = self.folioReader.readerCenter?.currentChapterNum {
+            if ChapterNum == currentCapterNum + 1 {
+                moveToNextChapter = true
+                
+            }
+            if ChapterNum == currentCapterNum - 1{
+                moveToPreviousChapter = true
+            }
+            print("currentCapterNum=\(currentCapterNum)")
+            print("ChapterNum=\(ChapterNum)")
+        }
+        print("moveToNextChapter=\(moveToNextChapter)")
+        print("moveToPreviousChapter=\(moveToPreviousChapter)")
+        self.folioReader.readerCenter?.currentChapterNum = ChapterNum
+//        if moveToNextChapter{
+//            scrollPageToTop()
+//        }
+        if moveToPreviousChapter{
             scrollPageToBottom()
+        }else{
+            scrollPageToTop()
         }
 
+//        if let pageScrollDirection = self.folioReader.readerCenter?.pageScrollDirection  {
+//            var scrollDirection =  self.readerConfig.scrollDirection
+//            if scrollDirection == .horizontal || scrollDirection == .horizontalWithVerticalContent{
+//                switch self.readerConfig.contentDirection{
+//                case .rightToLeft:
+//                    switch pageScrollDirection {
+//                    case .left:
+//                        scrollPageToBottom()
+//                        break
+//                    case .right:
+//                        scrollPageToTop()
+//                        break
+//                    default:
+//                        break
+//                    }
+//                default:
+//                    switch pageScrollDirection {
+//                    case .left:
+//                        scrollPageToBottom()
+//                        break
+//                    case .right:
+//                        scrollPageToTop()
+//                        break
+//                    default:
+//                        break
+//                    }
+//                }
+//            }else{
+//                switch pageScrollDirection {
+//                case .up:
+//                    scrollPageToTop()
+//                    break
+//                case .down:
+//                    scrollPageToBottom()
+//                    break
+//                default:
+//                    break
+//                }
+//            }
+//        }
         UIView.animate(withDuration: 0.2, animations: {webView.alpha = 1}, completion: { finished in
             webView.isColors = false
             self.webView?.createMenu(options: false)
@@ -413,18 +483,60 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
     /**
      Scrolls the page to bottom
      */
-    open func scrollPageToBottom() {
-        guard let webView = webView else { return }
-        let bottomOffset = self.readerConfig.isDirection(
-            CGPoint(x: 0, y: webView.scrollView.contentSize.height - webView.scrollView.bounds.height),
-            CGPoint(x: webView.scrollView.contentSize.width - webView.scrollView.bounds.width, y: 0),
-            CGPoint(x: webView.scrollView.contentSize.width - webView.scrollView.bounds.width, y: 0)
-        )
+//    open func scrollPageToBottom() {
+//        guard let webView = webView else { return }
+//        let bottomOffset = self.readerConfig.isDirection(
+//            CGPoint(x: 0, y: webView.scrollView.contentSize.height - webView.scrollView.bounds.height),
+//            CGPoint(x: webView.scrollView.contentSize.width - webView.scrollView.bounds.width, y: 0),
+//            CGPoint(x: webView.scrollView.contentSize.width - webView.scrollView.bounds.width, y: 0)
+//        )
+//
+//        if bottomOffset.forDirection(withConfiguration: self.readerConfig) >= 0 {
+//            DispatchQueue.main.async {
+//                self.webView?.scrollView.setContentOffset(bottomOffset, animated: false)
+//            }
+//        }
+//    }
 
-        if bottomOffset.forDirection(withConfiguration: self.readerConfig) >= 0 {
-            DispatchQueue.main.async {
-                self.webView?.scrollView.setContentOffset(bottomOffset, animated: false)
+    open func scrollPageToBottom() {
+        print("--To----Bottom")
+        guard let webView = webView else { return }
+        var offset = CGPoint(x: 0, y: 0)
+        switch  self.readerConfig.scrollDirection {
+        case .horizontal, .horizontalWithVerticalContent:
+            switch self.readerConfig.contentDirection {
+            case .topToBottom,.leftToRight:
+                offset = CGPoint(x: webView.scrollView.contentSize.width - webView.scrollView.bounds.width, y:0 )
+                break
+            case .rightToLeft:
+                offset = CGPoint(x: 0, y: 0)
+                break
+            default:
+                break
             }
+        default:
+             offset = CGPoint(x: 0, y: webView.scrollView.contentSize.height - webView.scrollView.bounds.height)
+        }
+        DispatchQueue.main.async {
+            self.webView?.scrollView.setContentOffset(offset, animated: false)
+        }
+    }
+    open func scrollPageToTop(){
+        print("--To----Top")
+        guard let webView = webView else { return }
+        var offset = CGPoint(x: 0, y: 0)
+        switch self.readerConfig.contentDirection {
+        case .topToBottom, .leftToRight:
+            offset = CGPoint(x: 0, y: 0)
+             break
+        case .rightToLeft:
+            offset = CGPoint(x: webView.scrollView.contentSize.width - webView.scrollView.bounds.width, y: 0)
+             break
+        default:
+            break
+        }
+        DispatchQueue.main.async {
+                self.webView?.scrollView.setContentOffset(offset, animated: false)
         }
     }
 
@@ -438,7 +550,6 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
     open func handleAnchor(_ anchor: String,  avoidBeginningAnchors: Bool, animated: Bool) {
         if !anchor.isEmpty {
             let offset = getAnchorOffset(anchor)
-
             switch self.readerConfig.scrollDirection {
             case .vertical, .defaultVertical:
                 let isBeginning = (offset < frame.forDirection(withConfiguration: self.readerConfig) * 0.5)

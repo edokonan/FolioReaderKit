@@ -37,6 +37,14 @@ public enum FolioReaderScrollDirection: Int {
     }
 }
 
+public enum CharpterContentDirection: Int{
+    case unpaginated
+    case leftToRight
+    case topToBottom
+    case bottomToTop
+    case rightToLeft
+}
+
 // MARK: - ClassBasedOnClickListener
 
 /**
@@ -150,9 +158,12 @@ open class FolioReaderConfig: NSObject {
     /// Go to saved position when open a book
     open var loadSavedPositionForCurrentBook = true
     
-    // Auto scroll To current chapter's top When Chapter Changed
-    open var scrollToTopWhenChangeChapter = false
+//    // Auto scroll To current chapter's top When Chapter Changed
+//    open var scrollToTopWhenChangeChapter = false
  
+    //
+    open var contentDirection: CharpterContentDirection = CharpterContentDirection.unpaginated
+    
 //    open var changePag
     
     // MARK: Quote image share

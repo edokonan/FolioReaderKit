@@ -20,13 +20,11 @@ class ExampleFolioReaderContainer: FolioReaderContainer {
         config.allowSharing = false
         config.displayTitle = true
         config.canChangeScrollDirection = true
-        config.scrollToTopWhenChangeChapter = true
+//        config.scrollToTopWhenChangeChapter = true
         //webview menu
-        config.useReaderMenuController = false
+        config.useReaderMenuController = true
         //hidden
         config.shouldHideNavigationOnTap = true
-
-
         //Print the chapter ID if one was clicked
         //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
         //To know if a user tapped on a chapter we can listen to events on the class "chapter" and receive the id value

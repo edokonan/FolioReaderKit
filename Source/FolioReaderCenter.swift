@@ -152,7 +152,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.isPagingEnabled = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = background
+//        collectionView.backgroundColor = background
+        collectionView.backgroundColor = UIColor.green
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         enableScrollBetweenChapters(scrollEnabled: true)
         view.addSubview(collectionView)
@@ -310,6 +311,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             self.changePageWith(page: pageNumber)
             self.currentPageNumber = pageNumber
         }
+        self.currentChapterNum = -99
     }
 
     // MARK: Change page progressive direction
@@ -435,7 +437,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return totalPages
     }
-
+    
+    var currentChapterNum = -99
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var reuseableCell = collectionView.dequeueReusableCell(withReuseIdentifier: kReuseCellIdentifier, for: indexPath) as? FolioReaderPage
         return self.configure(readerPageCell: reuseableCell, atIndexPath: indexPath)
@@ -495,8 +498,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         if let modifiedHtmlContent = self.delegate?.htmlContentForPage?(cell, htmlContent: html) {
             html = modifiedHtmlContent
         }
-
+        
+        cell.ChapterNum = indexPath.row
         cell.loadHTMLString(html, baseURL: URL(fileURLWithPath: resource.fullHref.deletingLastPathComponent))
+
         return cell
     }
 
@@ -671,7 +676,11 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         let pageOffSet = self.readerConfig.isDirection(webView.scrollView.contentOffset.x, webView.scrollView.contentOffset.x, webView.scrollView.contentOffset.y)
         let webViewPage = pageForOffset(pageOffSet, pageHeight: pageSize)
-
+        if let name = self.getCurrentChapterName(){
+            self.pageIndicatorView?.chaptertitle = name
+        }else{
+            self.pageIndicatorView?.chaptertitle = ""
+        }
         self.pageIndicatorView?.currentPage = webViewPage
     }
 
@@ -1430,6 +1439,9 @@ extension FolioReaderCenter: FolioReaderChapterListDelegate {
         let item = findPageByResource(reference)
         
         if item < totalPages {
+            //charpter変更するとき、とりあえず、強制的にTopに移動する
+            self.currentChapterNum = -99
+            
             let indexPath = IndexPath(row: item, section: 0)
             changePageWith(indexPath: indexPath, animated: false, completion: { () -> Void in
                 self.updateCurrentPage()
@@ -1441,15 +1453,16 @@ extension FolioReaderCenter: FolioReaderChapterListDelegate {
     }
     
     func chapterList(didDismissedChapterList chapterList: FolioReaderChapterList) {
+
         updateCurrentPage()
-        
+        //とりあえず： Anchor 対応しないです
         // Move to #fragment
-        if let reference = tempReference {
-            if let fragmentID = reference.fragmentID, let currentPage = currentPage , fragmentID != "" {
-                currentPage.handleAnchor(reference.fragmentID!, avoidBeginningAnchors: true, animated: true)
-            }
-            tempReference = nil
-        }
+//        if let reference = tempReference {
+//            if let fragmentID = reference.fragmentID, let currentPage = currentPage , fragmentID != "" {
+//                currentPage.handleAnchor(reference.fragmentID!, avoidBeginningAnchors: true, animated: true)
+//            }
+//            tempReference = nil
+//        }
     }
     
     func getScreenBounds() -> CGRect {

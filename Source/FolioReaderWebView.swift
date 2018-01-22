@@ -320,19 +320,69 @@ open class FolioReaderWebView: UIWebView {
         self.isUserInteractionEnabled = true
     }
     
+//    func setupScrollDirection() {
+//        switch self.readerConfig.scrollDirection {
+//        case .vertical, .defaultVertical, .horizontalWithVerticalContent:
+//            scrollView.isPagingEnabled = false
+//            paginationMode = .unpaginated
+//            scrollView.bounces = true
+//            break
+//        case .horizontal:
+//            scrollView.isPagingEnabled = true
+//            paginationMode = .leftToRight
+//            paginationBreakingMode = .page
+//            scrollView.bounces = false
+//            break
+//        }
+//    }
+    
+    // WebView中のPage 並ぶ順を設定する
     func setupScrollDirection() {
+//        switch self.readerConfig.scrollDirection {
+//        case .vertical, .defaultVertical, .horizontalWithVerticalContent:
+//            scrollView.isPagingEnabled = false
+//            paginationMode = .unpaginated
+//            scrollView.bounces = true
+//            break
+//        case .horizontal:
+//            scrollView.isPagingEnabled = false
+//            paginationMode = .unpaginated
+//            scrollView.bounces = false
+//            break
+//        }
         switch self.readerConfig.scrollDirection {
-        case .vertical, .defaultVertical, .horizontalWithVerticalContent:
-            scrollView.isPagingEnabled = false
-            paginationMode = .unpaginated
-            scrollView.bounces = true
+            case .vertical, .defaultVertical, .horizontalWithVerticalContent:
+                    scrollView.isPagingEnabled = true
+                    paginationMode = .topToBottom
+                    paginationBreakingMode = .page
+                    scrollView.bounces = false
+                    break
+            case .horizontal:
+                    SetPageScrollDirectionWhenHorizontal()
+                    break
+            }
+    }
+    func SetPageScrollDirectionWhenHorizontal(){
+        switch self.readerConfig.contentDirection {
+        case .rightToLeft:
+            scrollView.isPagingEnabled = true
+            paginationMode = .rightToLeft
+            paginationBreakingMode = .page
+            scrollView.bounces = false
             break
-        case .horizontal:
+        case .leftToRight,.topToBottom:
             scrollView.isPagingEnabled = true
             paginationMode = .leftToRight
             paginationBreakingMode = .page
             scrollView.bounces = false
             break
+        case .unpaginated, .bottomToTop:
+            scrollView.isPagingEnabled = false
+            paginationMode = .unpaginated
+            scrollView.bounces = true
+            break
         }
     }
+    
+    
 }

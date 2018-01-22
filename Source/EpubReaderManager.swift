@@ -8,20 +8,29 @@
 import UIKit
 
 @objc open class EpubReaderManager: NSObject {
-
-    @objc var novelVC : FolioReaderContainer?
-    @objc let reader = FolioReader.init()
-    @objc let config = FolioReaderConfig()
-    @objc var bookPath : String?
     
-    @objc func initWithPath(bookPath: String){
-        config.scrollDirection = .horizontal
+    @objc public var novelVC : FolioReaderContainer?
+    @objc public let reader = FolioReader.init()
+    @objc public let config = FolioReaderConfig()
+    @objc public var bookPath : String?
+    
+    override init(){
+        super.init()
+    }
+    
+    @objc public  convenience init(bookPath: String){
+        self.init()
+//        config.scrollDirection = .horizontalWithVerticalContent
+        config.scrollDirection = .defaultVertical
+        config.contentDirection = .topToBottom
+        
         config.allowSharing = false
         config.displayTitle = true
         config.canChangeScrollDirection = true
         //        config.scrollToTopWhenChangeChapter = true
+        config.loadSavedPositionForCurrentBook = false
         //webview menu
-        config.useReaderMenuController = false
+        config.useReaderMenuController = true
         //hidden
         config.shouldHideNavigationOnTap = true
         //Print the chapter ID if one was clicked
@@ -40,14 +49,17 @@ import UIKit
     }
     
     
-    @objc func openBook(path: String){
-        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath)
+    @objc public func openBook(path: String?){
+        if let bookpath = path{
+            novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookpath)
+        }
     }
     
-    @objc func showChapterList(){
+    @objc public  func showChapterList(){
         novelVC?.centerViewController?.readerContainer?.centerViewController?.showChapterList()
     }
-    @objc func showFontsMenu(){
+    @objc public func showFontsMenu(){
         novelVC?.centerViewController?.readerContainer?.centerViewController?.showFontsMenu()
     }
 }
+

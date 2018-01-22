@@ -13,6 +13,8 @@ class FolioReaderPageIndicator: UIView {
     var minutesLabel: UILabel!
     var totalMinutes: Int!
     var totalPages: Int!
+    var chaptertitle: String = ""
+    
     var currentPage: Int = 1 {
         didSet { self.reloadViewWithPage(self.currentPage) }
     }
@@ -95,7 +97,7 @@ class FolioReaderPageIndicator: UIView {
 //            pagesLabel.text = " \(pagesRemaining) " + self.readerConfig.localizedReaderManyPagesLeft
 //        }
 
-        pagesLabel.text = " \(page)/\(totalPages!) "
+        pagesLabel.text = " \(chaptertitle) \(totalPages-pagesRemaining)/\(totalPages!) "
         
         let minutesRemaining = Int(ceil(CGFloat((pagesRemaining * totalMinutes)/totalPages)))
         if minutesRemaining > 1 {
