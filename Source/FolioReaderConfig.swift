@@ -37,7 +37,7 @@ public enum FolioReaderScrollDirection: Int {
     }
 }
 
-public enum CharpterContentDirection: Int{
+@objc public enum CharpterContentDirection: Int{
     case unpaginated
     case leftToRight
     case topToBottom
@@ -92,7 +92,7 @@ public struct ClassBasedOnClickListener {
 /**
  Defines the Reader custom configuration
  */
-open class FolioReaderConfig: NSObject {
+@objc open class FolioReaderConfig: NSObject {
 
     // MARK: ClassBasedOnClickListener
 
@@ -106,7 +106,8 @@ open class FolioReaderConfig: NSObject {
     // MARK: Colors
 
     /// Base header custom TintColor
-    open var tintColor = UIColor(rgba: "#6ACC50")
+//    open var tintColor = UIColor(rgba: "#6ACC50")
+    @objc open var tintColor = UIColor.black
 
     /// Menu background color
     open var menuBackgroundColor = UIColor.white
@@ -151,6 +152,12 @@ open class FolioReaderConfig: NSObject {
     
     /// Display book title in navbar
     open var displayTitle = false
+    
+
+    open var MenuDisplayDayNightAndFontName = false
+    
+    
+    
 
     /// Hide the page indicator
     open var hidePageIndicator = false

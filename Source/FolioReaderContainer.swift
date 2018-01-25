@@ -163,10 +163,15 @@ open class FolioReaderContainer: UIViewController {
                     self.errorOnLoad = true
                     return
                 }
-
                 self.book = parsedBook
                 self.folioReader.isReaderOpen = true
-
+                
+                if(parsedBook.spine.pageProgressionDirection == "rtl"){
+                    self.readerConfig.contentDirection = .rightToLeft
+                }else{
+                    self.readerConfig.contentDirection = .leftToRight
+                }
+                
                 // Reload data
                 DispatchQueue.main.async {
 

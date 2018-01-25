@@ -128,63 +128,67 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
         let sunSelected = sun?.imageTintColor(selectedColor)?.withRenderingMode(.alwaysOriginal)
         let moonSelected = moon?.imageTintColor(selectedColor)?.withRenderingMode(.alwaysOriginal)
 
-        // Day night mode
-        let dayNight = SMSegmentView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 55),
-                                     separatorColour: self.readerConfig.nightModeSeparatorColor,
-                                     separatorWidth: 1,
-                                     segmentProperties:  [
-                                        keySegmentTitleFont: UIFont(name: "Avenir-Light", size: 17)!,
-                                        keySegmentOnSelectionColour: UIColor.clear,
-                                        keySegmentOffSelectionColour: UIColor.clear,
-                                        keySegmentOnSelectionTextColour: selectedColor,
-                                        keySegmentOffSelectionTextColour: normalColor,
-                                        keyContentVerticalMargin: 17 as AnyObject
-            ])
-        dayNight.delegate = self
-        dayNight.tag = 1
-        dayNight.addSegmentWithTitle(self.readerConfig.localizedFontMenuDay, onSelectionImage: sunSelected, offSelectionImage: sunNormal)
-        dayNight.addSegmentWithTitle(self.readerConfig.localizedFontMenuNight, onSelectionImage: moonSelected, offSelectionImage: moonNormal)
-        dayNight.selectSegmentAtIndex(self.folioReader.nightMode.hashValue)
-        menuView.addSubview(dayNight)
+        if (readerConfig.MenuDisplayDayNightAndFontName){
+            // Day night mode
+            let dayNight = SMSegmentView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 55),
+                                         separatorColour: self.readerConfig.nightModeSeparatorColor,
+                                         separatorWidth: 1,
+                                         segmentProperties:  [
+                                            keySegmentTitleFont: UIFont(name: "Avenir-Light", size: 17)!,
+                                            keySegmentOnSelectionColour: UIColor.clear,
+                                            keySegmentOffSelectionColour: UIColor.clear,
+                                            keySegmentOnSelectionTextColour: selectedColor,
+                                            keySegmentOffSelectionTextColour: normalColor,
+                                            keyContentVerticalMargin: 17 as AnyObject
+                ])
+            dayNight.delegate = self
+            dayNight.tag = 1
+            dayNight.addSegmentWithTitle(self.readerConfig.localizedFontMenuDay, onSelectionImage: sunSelected, offSelectionImage: sunNormal)
+            dayNight.addSegmentWithTitle(self.readerConfig.localizedFontMenuNight, onSelectionImage: moonSelected, offSelectionImage: moonNormal)
+            dayNight.selectSegmentAtIndex(self.folioReader.nightMode.hashValue)
+            menuView.addSubview(dayNight)
+            
+            // Separator
+            let line = UIView(frame: CGRect(x: 0, y: dayNight.frame.height+dayNight.frame.origin.y, width: view.frame.width, height: 1))
+            line.backgroundColor = self.readerConfig.nightModeSeparatorColor
+            menuView.addSubview(line)
+        
+            // Fonts adjust
+            let fontName = SMSegmentView(frame: CGRect(x: 15, y: line.frame.height+line.frame.origin.y, width: view.frame.width-30, height: 55),
+                                         separatorColour: UIColor.clear,
+                                         separatorWidth: 0,
+                                         segmentProperties:  [
+                                            keySegmentOnSelectionColour: UIColor.clear,
+                                            keySegmentOffSelectionColour: UIColor.clear,
+                                            keySegmentOnSelectionTextColour: selectedColor,
+                                            keySegmentOffSelectionTextColour: normalColor,
+                                            keyContentVerticalMargin: 17 as AnyObject
+                ])
+            fontName.delegate = self
+            fontName.tag = 2
+            
+            fontName.addSegmentWithTitle("Andada", onSelectionImage: nil, offSelectionImage: nil)
+            fontName.addSegmentWithTitle("Lato", onSelectionImage: nil, offSelectionImage: nil)
+            fontName.addSegmentWithTitle("Lora", onSelectionImage: nil, offSelectionImage: nil)
+            fontName.addSegmentWithTitle("Raleway", onSelectionImage: nil, offSelectionImage: nil)
+            
+            //        fontName.segments[0].titleFont = UIFont(name: "Andada-Regular", size: 18)!
+            //        fontName.segments[1].titleFont = UIFont(name: "Lato-Regular", size: 18)!
+            //        fontName.segments[2].titleFont = UIFont(name: "Lora-Regular", size: 18)!
+            //        fontName.segments[3].titleFont = UIFont(name: "Raleway-Regular", size: 18)!
+            
+            fontName.selectSegmentAtIndex(self.folioReader.currentFont.rawValue)
+            menuView.addSubview(fontName)
+            
+            // Separator 2
+            let line2 = UIView(frame: CGRect(x: 0, y: fontName.frame.height+fontName.frame.origin.y, width: view.frame.width, height: 1))
+            line2.backgroundColor = self.readerConfig.nightModeSeparatorColor
+            menuView.addSubview(line2)
 
-
-        // Separator
-        let line = UIView(frame: CGRect(x: 0, y: dayNight.frame.height+dayNight.frame.origin.y, width: view.frame.width, height: 1))
-        line.backgroundColor = self.readerConfig.nightModeSeparatorColor
-        menuView.addSubview(line)
-
-        // Fonts adjust
-        let fontName = SMSegmentView(frame: CGRect(x: 15, y: line.frame.height+line.frame.origin.y, width: view.frame.width-30, height: 55),
-                                     separatorColour: UIColor.clear,
-                                     separatorWidth: 0,
-                                     segmentProperties:  [
-                                        keySegmentOnSelectionColour: UIColor.clear,
-                                        keySegmentOffSelectionColour: UIColor.clear,
-                                        keySegmentOnSelectionTextColour: selectedColor,
-                                        keySegmentOffSelectionTextColour: normalColor,
-                                        keyContentVerticalMargin: 17 as AnyObject
-            ])
-        fontName.delegate = self
-        fontName.tag = 2
-
-        fontName.addSegmentWithTitle("Andada", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Lato", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Lora", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Raleway", onSelectionImage: nil, offSelectionImage: nil)
-
-//        fontName.segments[0].titleFont = UIFont(name: "Andada-Regular", size: 18)!
-//        fontName.segments[1].titleFont = UIFont(name: "Lato-Regular", size: 18)!
-//        fontName.segments[2].titleFont = UIFont(name: "Lora-Regular", size: 18)!
-//        fontName.segments[3].titleFont = UIFont(name: "Raleway-Regular", size: 18)!
-
-        fontName.selectSegmentAtIndex(self.folioReader.currentFont.rawValue)
-        menuView.addSubview(fontName)
+        }
 
         // Separator 2
-        let line2 = UIView(frame: CGRect(x: 0, y: fontName.frame.height+fontName.frame.origin.y, width: view.frame.width, height: 1))
-        line2.backgroundColor = self.readerConfig.nightModeSeparatorColor
-        menuView.addSubview(line2)
-
+        let line2 = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 1))
         // Font slider size
         let slider = HADiscreteSlider(frame: CGRect(x: 60, y: line2.frame.origin.y+2, width: view.frame.width-120, height: 55))
         slider.tickStyle = ComponentStyle.rounded
@@ -268,6 +272,13 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
             layoutDirection.selectSegmentAtIndex(FolioReaderScrollDirection.horizontal.rawValue)
         }
         menuView.addSubview(layoutDirection)
+        
+        
+        // Separator 2
+        let line5 = UIView(frame: CGRect(x: 0, y: layoutDirection.frame.height+layoutDirection.frame.origin.y, width: view.frame.width, height: 1))
+        line5.backgroundColor = self.readerConfig.nightModeSeparatorColor
+        menuView.addSubview(line5)
+
     }
 
     // MARK: - SMSegmentView delegate
