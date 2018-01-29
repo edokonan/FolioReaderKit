@@ -57,7 +57,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     var tempFragment: String?
     var animator: ZFModalTransitionAnimator!
     var pageIndicatorView: FolioReaderPageIndicator?
-    var pageIndicatorHeight: CGFloat = 20
+    var pageIndicatorHeight: CGFloat = 15
     var recentlyScrolled = false
     var recentlyScrolledDelay = 2.0 // 2 second delay until we clear recentlyScrolled
     var recentlyScrolledTimer: Timer!
@@ -238,12 +238,16 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             bounds.size.height = bounds.size.height + view.safeAreaInsets.bottom
         }
         
+        print("-frameForPageIndicatorView -  \(bounds)")
         return bounds
     }
 
     fileprivate func frameForScrollScrubber() -> CGRect {
         let scrubberY: CGFloat = ((self.readerConfig.shouldHideNavigationOnTap == true || self.readerConfig.hideBars == true) ? 50 : 74)
-        return CGRect(x: self.pageWidth + 10, y: scrubberY, width: 40, height: (self.pageHeight - 100))
+//        return CGRect(x: self.pageWidth + 10, y: scrubberY, width: 40, height: (self.pageHeight - 100))
+        let rect = CGRect(x: self.pageWidth + 5 , y: scrubberY, width: 20, height: (self.pageHeight - 100))
+        print("-frameForScrollScrubber -  \(rect)")
+        return rect
     }
 
     func configureNavBar() {
@@ -481,7 +485,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         html = html.replacingOccurrences(of: "</head>", with: toInject)
 
         // Font class name
-        var classes = folioReader.currentFont.cssIdentifier
+        //        var classes = folioReader.currentFont.cssIdentifier
+        var classes = ""
         classes += " " + folioReader.currentMediaOverlayStyle.className()
 
         // Night mode

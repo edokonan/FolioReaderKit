@@ -70,11 +70,21 @@ function nightMode(enable) {
 // Set font size
 function setFontSize(cls) {
     var elm = document.documentElement;
+    if (cls !== "textSizeOne"){
     removeClass(elm, "textSizeOne");
+    }
+    if (cls !== "textSizeTwo"){
     removeClass(elm, "textSizeTwo");
+    }
+    if (cls !== "textSizeThree"){
     removeClass(elm, "textSizeThree");
+    }
+    if (cls !== "textSizeFour"){
     removeClass(elm, "textSizeFour");
+    }
+    if (cls !== "textSizeFive"){
     removeClass(elm, "textSizeFive");
+    }
     addClass(elm, cls);
 }
 

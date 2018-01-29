@@ -63,7 +63,7 @@ class SampleViewController: UIViewController {
         guard let bookPath = Bundle.main.path(forResource: "鳳神醫02-測字符(m)+Qrcode", ofType: "epub") else { return }
 //        novelVC?.setupConfig(config, epubPath: bookPath)
 //        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath)
-        epubMng?.config.contentDirection = .rightToLeft
+//        epubMng?.config.contentDirection = .rightToLeft
         epubMng?.openBook(path: bookPath)
         
         self.addChildViewController((epubMng?.novelVC!)!)
@@ -73,8 +73,8 @@ class SampleViewController: UIViewController {
         self.loadViewIfNeeded()
     }
     @IBAction func openbook2(_ sender: Any) {
-        guard let bookPath = Bundle.main.path(forResource: "The Adventures Of Sherlock Holmes - Adventure I", ofType: "epub") else { return }
-        epubMng?.config.contentDirection = .topToBottom
+        guard let bookPath = Bundle.main.path(forResource: "NEC_TJ_J_Vol70_No2", ofType: "epub") else { return }
+//        epubMng?.config.contentDirection = .topToBottom
         epubMng?.openBook(path: bookPath)
         self.addChildViewController((epubMng?.novelVC!)!)
         self.ContainerView.addSubview((epubMng?.novelVC?.view)!)

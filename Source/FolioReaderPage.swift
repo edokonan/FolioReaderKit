@@ -81,11 +81,16 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         if webView == nil {
             webView = FolioReaderWebView(frame: webViewFrame(), readerContainer: readerContainer)
             webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleLeftMargin,.flexibleTopMargin,.flexibleRightMargin,.flexibleBottomMargin]
             webView?.dataDetectorTypes = .link
             webView?.scrollView.showsVerticalScrollIndicator = false
-            webView?.scrollView.showsHorizontalScrollIndicator = false
+//            webView?.scrollView.showsHorizontalScrollIndicator = false
+//            webView?.scrollView.showsVerticalScrollIndicator = true
+            webView?.scrollView.showsHorizontalScrollIndicator = true
             webView?.backgroundColor = .clear
             self.contentView.addSubview(webView!)
+            
+            self.contentView.backgroundColor = self.readerConfig.PageBackGroudColor
         }
         webView?.delegate = self
 
@@ -130,29 +135,35 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         let statusbarHeight = UIApplication.shared.statusBarFrame.size.height
         let navBarHeight = self.folioReader.readerCenter?.navigationController?.navigationBar.frame.size.height ?? CGFloat(0)
         let navTotal = self.readerConfig.shouldHideNavigationOnTap ? 0 : statusbarHeight + navBarHeight
-        let paddingTop: CGFloat = 20
-        let paddingBottom: CGFloat = 30
-
+//        let paddingTop: CGFloat = 20
+//        let paddingBottom: CGFloat = 20
+//        var frame = CGRect(
+//            x: bounds.origin.x,
+//            y: self.readerConfig.isDirection(bounds.origin.y + navTotal, bounds.origin.y + navTotal + paddingTop, bounds.origin.y + navTotal),
+//            width: bounds.width,
+//            height: self.readerConfig.isDirection(bounds.height - navTotal, bounds.height - navTotal - paddingTop - paddingBottom, bounds.height - navTotal)
+//        )
         var frame = CGRect(
-            x: bounds.origin.x,
-            y: self.readerConfig.isDirection(bounds.origin.y + navTotal, bounds.origin.y + navTotal + paddingTop, bounds.origin.y + navTotal),
-            width: bounds.width,
-            height: self.readerConfig.isDirection(bounds.height - navTotal, bounds.height - navTotal - paddingTop - paddingBottom, bounds.height - navTotal)
+            x: bounds.origin.x + self.readerConfig.PagePaddingLeft,
+            y: bounds.origin.y + navTotal + self.readerConfig.PagePaddingTop,
+            width: bounds.width - self.readerConfig.PagePaddingLeft - self.readerConfig.PagePaddingRight,
+            height: bounds.height - navTotal - self.readerConfig.PagePaddingTop - self.readerConfig.PagePaddingBottom
         )
-        
+        self.readerConfig.PageFrame = frame
+        print(self.readerConfig.PageFrame)
         return frame
     }
-
+    
     func loadHTMLString(_ htmlContent: String!, baseURL: URL!) {
+        let tempHtmlContent1 = htmlContentWithFontSize(htmlContent)
         // Insert the stored highlights to the HTML
-        let tempHtmlContent = htmlContentWithInsertHighlights(htmlContent)
+        let tempHtmlContent = htmlContentWithInsertHighlights(tempHtmlContent1)
         // Load the html into the webview
         webView?.alpha = 0
         webView?.loadHTMLString(tempHtmlContent, baseURL: baseURL)
     }
 
     // MARK: - Highlights
-
     fileprivate func htmlContentWithInsertHighlights(_ htmlContent: String) -> String {
         var tempHtmlContent = htmlContent as NSString
         // Restore highlights
@@ -179,16 +190,25 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
                 }
             }
         }
+
         return tempHtmlContent as String
     }
-
+    // MARK: - FontSize
+    fileprivate func htmlContentWithFontSize(_ htmlContent: String) -> String {
+        var tempHtmlContent = htmlContent as NSString
+        var fontsizeclasses = "\(folioReader.currentFontSize.cssIdentifier) "
+        tempHtmlContent = tempHtmlContent.replacingOccurrences(of: "class=\"", with: "class=\"\(fontsizeclasses)") as NSString
+        return tempHtmlContent as String
+    }
+    
     var ChapterNum:Int = -1
     // MARK: - UIWebView Delegate
     open func webViewDidFinishLoad(_ webView: UIWebView) {
         guard let webView = webView as? FolioReaderWebView else {
             return
         }
-
+        
+//        self.resetFontSize()
         delegate?.pageWillLoad?(self)
 
         // Add the custom class based onClick listener
@@ -284,10 +304,25 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
 //        }
         UIView.animate(withDuration: 0.2, animations: {webView.alpha = 1}, completion: { finished in
             webView.isColors = false
-            self.webView?.createMenu(options: false)
+            self.webView?.createMenu(options: false)        //reset font size
         })
-
         delegate?.pageDidLoad?(self)
+    }
+    
+    // Mark: Reset Font
+    func resetFontSize(){
+        self.printhtml()
+        if let currentFontSize = self.readerContainer?.folioReader.currentFontSize{
+            print("setFontSize('\(currentFontSize.cssIdentifier)')")
+            self.webView?.js("setFontSize('\(currentFontSize.cssIdentifier)')")
+        }
+//        self.printhtml()
+    }
+    func printhtml(){
+        print("----------------------------")
+        if let html = self.webView?.js("getHTML()") {
+            print(html)
+        }
     }
 
     open func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {

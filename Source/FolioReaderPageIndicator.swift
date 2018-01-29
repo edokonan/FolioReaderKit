@@ -43,11 +43,14 @@ class FolioReaderPageIndicator: UIView {
         pagesLabel.textAlignment = NSTextAlignment.right
         addSubview(pagesLabel)
 
+    
         minutesLabel = UILabel(frame: CGRect.zero)
-        minutesLabel.font = UIFont(name: "Avenir-Light", size: 10)!
-        minutesLabel.textAlignment = NSTextAlignment.right
-        //        minutesLabel.alpha = 0
-        addSubview(minutesLabel)
+        if !self.readerConfig.hideMinutesLabel {
+            minutesLabel.font = UIFont(name: "Avenir-Light", size: 10)!
+            minutesLabel.textAlignment = NSTextAlignment.right
+            //        minutesLabel.alpha = 0
+            addSubview(minutesLabel)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -58,9 +61,14 @@ class FolioReaderPageIndicator: UIView {
         minutesLabel.sizeToFit()
         pagesLabel.sizeToFit()
 
-        let fullW = pagesLabel.frame.width + minutesLabel.frame.width
-        minutesLabel.frame.origin = CGPoint(x: frame.width/2-fullW/2, y: 2)
-        pagesLabel.frame.origin = CGPoint(x: minutesLabel.frame.origin.x+minutesLabel.frame.width, y: 2)
+        if !self.readerConfig.hideMinutesLabel {
+            let fullW = pagesLabel.frame.width + minutesLabel.frame.width
+            minutesLabel.frame.origin = CGPoint(x: frame.width/2-fullW/2, y: 2)
+            pagesLabel.frame.origin = CGPoint(x: minutesLabel.frame.origin.x+minutesLabel.frame.width, y: 2)
+        }else{
+            let fullW = pagesLabel.frame.width
+            pagesLabel.frame.origin = CGPoint(x: frame.width/2-fullW/2, y: 2)
+        }
         
         if updateShadow {
             layer.shadowPath = UIBezierPath(rect: bounds).cgPath

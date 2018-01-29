@@ -130,8 +130,20 @@ public struct ClassBasedOnClickListener {
     /// Media overlay or TTS selection color
     open lazy var mediaOverlayColor: UIColor! = self.tintColor
 
-    // MARK: Custom actions
-
+    // MARK: Page Settings
+    open var PagePaddingLeft:CGFloat = 5
+    open var PagePaddingRight:CGFloat = 5
+    open var PagePaddingTop:CGFloat = 2
+    open var PagePaddingBottom:CGFloat = 20
+    open var PageFrame:CGRect?
+    open var PageBackGroudColor = UIColor.clear
+    
+    /// MARK: PageIndicator View
+    open var hideMinutesLabel = true
+    
+    /// MARK: PageIndicator View
+    open var MenuDisplayDayNightAndFontName = false
+    
     /// hide the navigation bar and the bottom status view
     open var hideBars = false
 
@@ -154,11 +166,8 @@ public struct ClassBasedOnClickListener {
     open var displayTitle = false
     
 
-    open var MenuDisplayDayNightAndFontName = false
     
     
-    
-
     /// Hide the page indicator
     open var hidePageIndicator = false
 
