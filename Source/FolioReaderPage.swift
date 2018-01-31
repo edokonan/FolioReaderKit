@@ -510,9 +510,55 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
      - parameter offset:   The offset to scroll
      - parameter animated: Enable or not scrolling animation
      */
-    open func scrollPageToOffset(_ offset: CGFloat, animated: Bool) {
-        let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: offset), CGPoint(x: offset, y: 0), CGPoint(x: 0, y: offset))
-        webView?.scrollView.setContentOffset(pageOffsetPoint, animated: animated)
+    open func scrollPageToOffset(_ offset: CGFloat, offsetRate: CGFloat? = 0, animated: Bool) {
+//        var pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: offset), CGPoint(x: offset, y: 0), CGPoint(x: 0, y: offset))
+        var pageOffsetPoint = CGPoint(x: 0, y: offset)
+        if let rate = offsetRate, rate>0{
+            switch  self.readerConfig.scrollDirection {
+            case .horizontal, .horizontalWithVerticalContent:
+                var offset = (self.webView?.scrollView.contentSize.width)! * rate
+                let pagenum = Int(offset/(self.webView?.scrollView.bounds.width)!)
+                offset = CGFloat(pagenum) * (self.webView?.scrollView.bounds.width)!
+                switch self.readerConfig.contentDirection {
+                case .rightToLeft:
+                    pageOffsetPoint = CGPoint(x: (self.webView?.scrollView.contentSize.width)! - offset, y:0 )
+                    break
+                default :
+                    pageOffsetPoint = CGPoint(x: offset, y:0 )
+                    break
+                }
+            default:
+                var offset = (self.webView?.scrollView.contentSize.height)! * rate
+                let pagenum = Int(offset/(self.webView?.scrollView.bounds.height)!)
+                offset = (self.webView?.scrollView.bounds.height)! * CGFloat(pagenum)
+                pageOffsetPoint = CGPoint(x: 0, y: offset)
+                break
+            }
+        }else{
+            switch  self.readerConfig.scrollDirection {
+            case .horizontal, .horizontalWithVerticalContent:
+                switch self.readerConfig.contentDirection {
+                case .rightToLeft:
+                    pageOffsetPoint = CGPoint(x: (self.webView?.scrollView.contentSize.width)! - offset, y:0 )
+                    break
+                default :
+                    pageOffsetPoint = CGPoint(x: offset, y:0 )
+                    break
+                }
+            default:
+                pageOffsetPoint = CGPoint(x: 0, y: offset)
+                break
+            }
+        }
+        print("-----scrollPageToOffset---------")
+        print("offsetRate: \(offsetRate)")
+        print("pageOffsetPoint: \(pageOffsetPoint)")
+        let delay = 0.1 * Double(NSEC_PER_SEC) // 0.4 seconds * nanoseconds per seconds
+        let dispatchTime = (DispatchTime.now() + (Double(Int64(delay)) / Double(NSEC_PER_SEC)))
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
+            self.webView?.scrollView.setContentOffset(pageOffsetPoint, animated: animated)
+            self.folioReader.readerCenter?.resetIndicatorViewPage(self)
+        })
     }
 
     /**

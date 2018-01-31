@@ -136,7 +136,7 @@ public struct ClassBasedOnClickListener {
     open var PagePaddingTop:CGFloat = 2
     open var PagePaddingBottom:CGFloat = 20
     open var PageFrame:CGRect?
-    open var PageBackGroudColor = UIColor.clear
+    open var PageBackGroudColor = UIColor.green
     
     /// MARK: PageIndicator View
     open var hideMinutesLabel = true
@@ -267,14 +267,28 @@ public struct ClassBasedOnClickListener {
 
      - returns: The right value based on direction.
      */
+//    func isDirection<T> (_ vertical: T, _ horizontal: T, _ horizontalContentVertical: T) -> T {
+//        switch self.scrollDirection {
+//        case .vertical, .defaultVertical:
+//            return vertical
+//        case .horizontal:
+//            return horizontal
+//        case .horizontalWithVerticalContent:
+//            return horizontalContentVertical
+//        }
+//    }
     func isDirection<T> (_ vertical: T, _ horizontal: T, _ horizontalContentVertical: T) -> T {
         switch self.scrollDirection {
         case .vertical, .defaultVertical:
             return vertical
-        case .horizontal:
+//        case .horizontal:
+//            return horizontal
+//        case .horizontalWithVerticalContent:
+//            return horizontalContentVertical
+        default :
             return horizontal
-        case .horizontalWithVerticalContent:
-            return horizontalContentVertical
         }
     }
+    
+    
 }

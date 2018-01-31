@@ -350,11 +350,40 @@ extension FolioReader {
         let position = [
             "pageNumber": (self.readerCenter?.currentPageNumber ?? 0),
             "pageOffsetX": webView.scrollView.contentOffset.x,
-            "pageOffsetY": webView.scrollView.contentOffset.y
+            "pageOffsetY": webView.scrollView.contentOffset.y,
+            "pageOffsetRate": getpageOffsetRate()
             ] as [String : Any]
-
+        print("-------saveReaderState------")
+        print(position)
         self.savedPositionForCurrentBook = position
     }
+    open func getpageOffsetRate() -> CGFloat{
+        guard let bookId = self.readerContainer?.book.name,
+            let currentPage = self.readerCenter?.currentPage,
+            let webView = currentPage.webView,
+            let config = self.readerContainer?.readerConfig else {
+                return 0
+        }
+        var offsetRate = webView.scrollView.contentOffset.x / webView.scrollView.contentSize.width
+
+        switch config.scrollDirection {
+        case .horizontal, .horizontalWithVerticalContent:
+            switch config.contentDirection {
+            case .rightToLeft:
+                offsetRate = 1 - webView.scrollView.contentOffset.x / webView.scrollView.contentSize.width
+                break
+            default :
+                offsetRate = webView.scrollView.contentOffset.x / webView.scrollView.contentSize.width
+                break
+            }
+            break
+        default:
+            offsetRate = webView.scrollView.contentOffset.y / webView.scrollView.contentSize.height
+            break
+        }
+        return offsetRate
+    }
+    
 
     /// Closes and save the reader current instance.
     open func close() {

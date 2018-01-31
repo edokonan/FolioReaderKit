@@ -60,7 +60,8 @@ import UIKit
         config.displayTitle = true
         config.canChangeScrollDirection = true
         //        config.scrollToTopWhenChangeChapter = true
-        config.loadSavedPositionForCurrentBook = false
+        config.loadSavedPositionForCurrentBook = true
+        
         //webview menu
         config.useReaderMenuController = true
         //hidden

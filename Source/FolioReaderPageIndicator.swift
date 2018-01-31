@@ -96,26 +96,26 @@ class FolioReaderPageIndicator: UIView {
         pagesLabel.textColor = self.folioReader.isNight(UIColor(white: 1, alpha: 0.6), UIColor(white: 0, alpha: 0.9))
     }
 
-    fileprivate func reloadViewWithPage(_ page: Int) {
-        let pagesRemaining = self.folioReader.needsRTLChange ? totalPages-(totalPages-page+1) : totalPages-page
-
+    fileprivate func reloadViewWithPage(_ currentPageNumInWebView: Int) {
+//        print("-------FolioReaderPageIndicator reloadViewWithPage--------")
+//        print("page: \(currentPageNumInWebView)  totalPages :\(totalPages!)")
+//        var pagesRemaining = self.folioReader.needsRTLChange ? totalPages-(totalPages-page+1) : totalPages-page
+//        pagesRemaining = page
 //        if pagesRemaining == 1 {
 //            pagesLabel.text = " " + self.readerConfig.localizedReaderOnePageLeft
 //        } else {
 //            pagesLabel.text = " \(pagesRemaining) " + self.readerConfig.localizedReaderManyPagesLeft
 //        }
-
-        pagesLabel.text = " \(chaptertitle) \(totalPages-pagesRemaining)/\(totalPages!) "
-        
-        let minutesRemaining = Int(ceil(CGFloat((pagesRemaining * totalMinutes)/totalPages)))
-        if minutesRemaining > 1 {
-            minutesLabel.text = "\(minutesRemaining) " + self.readerConfig.localizedReaderManyMinutes+" ·"
-        } else if minutesRemaining == 1 {
-            minutesLabel.text = self.readerConfig.localizedReaderOneMinute+" ·"
-        } else {
-            minutesLabel.text = self.readerConfig.localizedReaderLessThanOneMinute+" ·"
-        }
-
+//        pagesLabel.text = " \(chaptertitle) \(totalPages-pagesRemaining)/\(totalPages!) "
+//        let minutesRemaining = Int(ceil(CGFloat((pagesRemaining * totalMinutes)/totalPages)))
+//        if minutesRemaining > 1 {
+//            minutesLabel.text = "\(minutesRemaining) " + self.readerConfig.localizedReaderManyMinutes+" ·"
+//        } else if minutesRemaining == 1 {
+//            minutesLabel.text = self.readerConfig.localizedReaderOneMinute+" ·"
+//        } else {
+//            minutesLabel.text = self.readerConfig.localizedReaderLessThanOneMinute+" ·"
+//        }
+        pagesLabel.text = " \(chaptertitle) \(currentPageNumInWebView)/\(totalPages!) "
         reloadView(updateShadow: false)
     }
 }
