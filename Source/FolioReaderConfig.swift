@@ -21,9 +21,8 @@ import RealmSwift
 public enum FolioReaderScrollDirection: Int {
     case vertical
     case horizontal
-    case horizontalWithVerticalContent
+    case horizontalWithVerticalContent  // not use
     case defaultVertical
-
     /// The current scroll direction
     ///
     /// - Returns: Returns `UICollectionViewScrollDirection`
@@ -31,7 +30,7 @@ public enum FolioReaderScrollDirection: Int {
         switch self {
         case .vertical, .defaultVertical:
             return .vertical
-        case .horizontal, .horizontalWithVerticalContent:
+        case .horizontal, .horizontalWithVerticalContent://
             return .horizontal
         }
     }
@@ -41,7 +40,6 @@ public enum FolioReaderScrollDirection: Int {
     case unpaginated
     case leftToRight
     case topToBottom
-    case bottomToTop
     case rightToLeft
 }
 
@@ -136,8 +134,22 @@ public struct ClassBasedOnClickListener {
     open var PagePaddingTop:CGFloat = 2
     open var PagePaddingBottom:CGFloat = 20
     open var PageFrame:CGRect?
-    open var PageBackGroudColor = UIColor.green
-    
+    open var PageBackGroudColor = UIColor.clear
+    // MARK: Page Settings
+    private var testMode = false
+    open var TestMode: Bool {
+        get{
+            return self.testMode
+        }
+        set(invalue){
+            self.testMode=invalue
+            if invalue{
+                PageBackGroudColor = UIColor.green
+            }else{
+                PageBackGroudColor = UIColor.clear
+            }
+        }
+    }
     /// MARK: PageIndicator View
     open var hideMinutesLabel = true
     
@@ -164,9 +176,6 @@ public struct ClassBasedOnClickListener {
     
     /// Display book title in navbar
     open var displayTitle = false
-    
-
-    
     
     /// Hide the page indicator
     open var hidePageIndicator = false

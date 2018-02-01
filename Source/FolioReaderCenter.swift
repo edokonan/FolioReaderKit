@@ -243,8 +243,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         if #available(iOS 11.0, *) {
             bounds.size.height = bounds.size.height + view.safeAreaInsets.bottom
         }
-        
-        print("-frameForPageIndicatorView -  \(bounds)")
+        myepub_debugprint("-frameForPageIndicatorView -  \(bounds)")
         return bounds
     }
 
@@ -252,7 +251,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let scrubberY: CGFloat = ((self.readerConfig.shouldHideNavigationOnTap == true || self.readerConfig.hideBars == true) ? 50 : 74)
 //        return CGRect(x: self.pageWidth + 10, y: scrubberY, width: 40, height: (self.pageHeight - 100))
         let rect = CGRect(x: self.pageWidth + 5 , y: scrubberY, width: 20, height: (self.pageHeight - 100))
-        print("-frameForScrollScrubber -  \(rect)")
+        myepub_debugprint("-frameForScrollScrubber -  \(rect)")
         return rect
     }
 
@@ -338,21 +337,20 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
     func setCollectionViewProgressiveDirection() {
         self.transformViewForRTL(self.collectionView)
-        print("CollectionView RTL ")
-        print(self.collectionView.transform)
+//        myepub_debugprint("CollectionView RTL")
+//        myepub_debugprint(self.collectionView.transform)
     }
 
     func setPageProgressiveDirection(_ page: FolioReaderPage) {
         self.transformViewForRTL(page)
-        print("page RTL ")
-        print(page.transform.a)
+//        myepub_debugprint("page RTL")
+//        myepub_debugprint(page.transform.a)
     }
-
     // MARK: Change layout orientation
 
     /// Get internal page offset before layout change
     private func updatePageOffsetRate() {
-        print("------------updatePageOffsetRate------------")
+        myepub_debugprint("------------updatePageOffsetRate------------")
         guard let currentPage = self.currentPage, let webView = currentPage.webView else {
             return
         }
@@ -361,8 +359,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let contentSize = pageScrollView.contentSize.forDirection(withConfiguration: self.readerConfig)
         var contentOffset = pageScrollView.contentOffset.forDirection(withConfiguration: self.readerConfig)
         
-        print("self.readerConfig.scrollDirection:  \(self.readerConfig.scrollDirection) ")
-        print("contentSize:  \(pageScrollView.contentSize) : boundsize:  \(pageScrollView.bounds.size) : contentOffset : \(pageScrollView.contentOffset)")
+        myepub_debugprint("self.readerConfig.scrollDirection:  \(self.readerConfig.scrollDirection) ")
+        myepub_debugprint("contentSize:  \(pageScrollView.contentSize) : boundsize:  \(pageScrollView.bounds.size) : contentOffset : \(pageScrollView.contentOffset)")
         
         switch self.readerConfig.scrollDirection {
         case .horizontal, .horizontalWithVerticalContent:
@@ -389,7 +387,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             break
         }
 //        self.pageOffsetRate = (contentSize != 0 ? (contentOffset / contentSize) : 0)
-        print("pageOffsetRate:  \(pageOffsetRate) : pageNumOffset : \(pageNumOffset)")
+        myepub_debugprint("pageOffsetRate:  \(pageOffsetRate) : pageNumOffset : \(pageNumOffset)")
     }
 
     func setScrollDirection(_ direction: FolioReaderScrollDirection) {
@@ -410,8 +408,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         // Page progressive direction
         self.setCollectionViewProgressiveDirection()
-        delay(0.2) { self.setPageProgressiveDirection(currentPage) }
-
+        
+        delay(0.2) {
+            self.setPageProgressiveDirection(currentPage)
+        }
 
         /**
          *  This delay is needed because the page will not be ready yet
@@ -433,7 +433,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                 }
             }
             let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: pageOffset), CGPoint(x: pageOffset, y: 0), CGPoint(x: 0, y: pageOffset))
-            print(pageOffsetPoint)
+            myepub_debugprint(pageOffsetPoint)
             pageScrollView.setContentOffset(pageOffsetPoint, animated: true)
         }
     }
@@ -577,7 +577,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     
     // MARK: - Device rotation
     override open func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        print("--------willRotate-------------")
+        myepub_debugprint("--------willRotate-------------")
         guard folioReader.isReaderReady else { return }
 
         setPageSize(toInterfaceOrientation)
@@ -626,7 +626,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     override open func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        print("--------didRotate-------------")
+        myepub_debugprint("--------didRotate-------------")
         guard folioReader.isReaderReady == true, let currentPage = currentPage else {
             return
         }
@@ -754,6 +754,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
     //Mark: SetPage and TotalPage
     func resetIndicatorViewPage(_ page: FolioReaderPage?){
+        
         guard let page = page, let webView = page.webView else { return }
         
         var pageSize = self.readerConfig.isDirection(page.webView?.scrollView.bounds.height, page.webView?.scrollView.bounds.width, page.webView?.scrollView.bounds.height)
@@ -786,7 +787,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             CurrentWebViewPageNum = pageForOffset(pageOffSet, pageHeight: pageSize!)
             break
         }
-        print("pageSize:\(pageSize) : contentSize : \(contentSize) pageOffSet:  \(pageOffSet) totalPages:  \(totalPages) CurrentWebViewPageNum:  \(CurrentWebViewPageNum)")
+        myepub_debugprint("--------resetIndicatorViewPage-------------")
+//        myepub_debugprint("pageSize:\(pageSize) : contentSize : \(contentSize) pageOffSet:  \(pageOffSet) totalPages:  \(totalPages) CurrentWebViewPageNum:  \(CurrentWebViewPageNum)")
 //        self.pageIndicatorView?.totalPages = ((pageSize != 0) ? Int(ceil(contentSize / pageSize!)) : 0)
         self.pageIndicatorView?.totalPages = totalPages
         if let name = self.getCurrentChapterName(){
@@ -837,8 +839,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func frameForPage(_ page: Int) -> CGRect {
-        print("----------frameForPage----------------")
-        
+        myepub_debugprint("----------frameForPage----------------")
 //        return self.readerConfig.isDirection(
 //            CGRect(x: 0, y: self.pageHeight * CGFloat(page-1), width: self.pageWidth, height: self.pageHeight),
 //            CGRect(x: self.pageWidth * CGFloat(page-1), y: 0, width: self.pageWidth, height: self.pageHeight),
@@ -860,7 +861,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 //        }
         
         
-        print("page:  \(page) : webviewPageWidth : \(self.webviewPageWidth) ret:  \(ret) ")
+        myepub_debugprint("page:  \(page) : webviewPageWidth : \(self.webviewPageWidth) ret:  \(ret) ")
         
         return ret
     }
@@ -1304,7 +1305,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
     // MARK: - ScrollView Delegate
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        print("-------scrollViewWillBeginDragging---------")
+        myepub_debugprint("-------scrollViewWillBeginDragging---------")
         self.isScrolling = true
         clearRecentlyScrolled()
         recentlyScrolled = true
@@ -1319,7 +1320,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("-------scrollViewDidScroll---------")
+        myepub_debugprint("-------scrollViewDidScroll---------")
         if (navigationController?.isNavigationBarHidden == false) {
             self.toggleBars()
         }
@@ -1383,10 +1384,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("-------scrollViewDidEndDecelerating---------")
+        myepub_debugprint("-------scrollViewDidEndDecelerating---------")
         self.isScrolling = false
         // Perform the page after a short delay as the collection view hasn't completed it's transition if this method is called (the index paths aren't right during fast scrolls).
-        delay(0.2, closure: { [weak self] in
+        delay(0.1, closure: { [weak self] in
             if (self?.readerConfig.scrollDirection == .horizontalWithVerticalContent),
                 let cell = ((scrollView.superview as? UIWebView)?.delegate as? FolioReaderPage) {
                 let currentIndexPathRow = cell.pageNumber - 1
@@ -1415,13 +1416,18 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                 self?.scrollScrubber?.scrollViewDidEndDecelerating(scrollView)
             }
             
+            //bugfix: for bug
+            self?.folioReader.readerCenter?.setCollectionViewProgressiveDirection()
+            if let currentPage = self?.currentPage {
+                self?.folioReader.readerCenter?.setPageProgressiveDirection(currentPage)
+            }
             // save state
             self?.folioReader.saveReaderState()
         })
     }
 
     open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("-------scrollViewDidEndDragging---------")
+        myepub_debugprint("-------scrollViewDidEndDragging---------")
         recentlyScrolledTimer = Timer(timeInterval:recentlyScrolledDelay, target: self, selector: #selector(FolioReaderCenter.clearRecentlyScrolled), userInfo: nil, repeats: false)
         RunLoop.current.add(recentlyScrolledTimer, forMode: RunLoopMode.commonModes)
     }

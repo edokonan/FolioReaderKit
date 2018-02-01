@@ -17,55 +17,27 @@ import UIKit
     override init(){
         super.init()
     }
-    
-//    @objc public convenience init(contentDirection: CharpterContentDirection){
-//        self.init()
-//        //        config.scrollDirection = .horizontalWithVerticalContent
-//        config.scrollDirection = .defaultVertical
-//        //        config.contentDirection = .topToBottom
-//        config.contentDirection = contentDirection
-//        config.allowSharing = false
-//        config.displayTitle = true
-//        config.canChangeScrollDirection = true
-//        //        config.scrollToTopWhenChangeChapter = true
-////        config.loadSavedPositionForCurrentBook = true
-//        //webview menu
-//        config.useReaderMenuController = true
-//        //hidden
-//        config.shouldHideNavigationOnTap = true
-//        //Print the chapter ID if one was clicked
-//        //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
-//        //To know if a user tapped on a chapter we can listen to events on the class "chapter" and receive the id value
-//        let listener = ClassBasedOnClickListener(schemeName: "chaptertapped", querySelector: ".chapter", attributeName: "id", onClickAction: { (attributeContent: String?, touchPointRelativeToWebView: CGPoint?) in
-//            print("chapter with id: " + (attributeContent ?? "-") + " clicked")
-//        })
-//        config.classBasedOnClickListeners.append(listener)
-//        //        bookPath = Bundle.main.path(forResource: "The Silver Chair", ofType: "epub")
-//        //        setupConfig(config, epubPath: bookPath)
-////        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath)
-//        //        self.addChildViewController(novelVC!)
-//        //        self.ContainerView.addSubview(novelVC!.view)
-//        //        self.ContainerView.layer.masksToBounds = true
-//    }
-    
-    
+
     @objc public  convenience init(bookPath: String){
         self.init()
-//        config.scrollDirection = .horizontalWithVerticalContent
         config.scrollDirection = .defaultVertical
-//        config.contentDirection = .topToBottom
-//        config.contentDirection = .rightToLeft
-
+        
         config.allowSharing = false
+        
         config.displayTitle = true
+        
         config.canChangeScrollDirection = true
-        //        config.scrollToTopWhenChangeChapter = true
+        
         config.loadSavedPositionForCurrentBook = true
+        
+        config.TestMode = false
         
         //webview menu
         config.useReaderMenuController = true
+        
         //hidden
         config.shouldHideNavigationOnTap = true
+        
         //Print the chapter ID if one was clicked
         //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
         //To know if a user tapped on a chapter we can listen to events on the class "chapter" and receive the id value
@@ -73,19 +45,29 @@ import UIKit
             print("chapter with id: " + (attributeContent ?? "-") + " clicked")
         })
         config.classBasedOnClickListeners.append(listener)
-        //        bookPath = Bundle.main.path(forResource: "The Silver Chair", ofType: "epub")
-        //        setupConfig(config, epubPath: bookPath)
         novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath)
-        //        self.addChildViewController(novelVC!)
-        //        self.ContainerView.addSubview(novelVC!.view)
-        //        self.ContainerView.layer.masksToBounds = true
     }
-    
     
     @objc public func openBook(path: String?){
         if let bookpath = path{
             novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookpath)
         }
+    }
+    
+    @objc public func displayInView(vc: UIViewController,ContainerView: UIView){
+        if let novelvc = novelVC{
+            novelVC?.removeFromParentViewController()
+            novelVC?.view.removeFromSuperview()
+            
+            vc.addChildViewController(novelVC!)
+            ContainerView.addSubview(novelVC!.view)
+            ContainerView.layer.masksToBounds = true
+            novelVC?.view.frame = ContainerView.bounds
+        }
+    }
+    
+    @objc public  func setTestMode(bool:Bool){
+        config.TestMode = bool
     }
     
     @objc public  func showChapterList(){
@@ -95,4 +77,10 @@ import UIKit
         novelVC?.centerViewController?.readerContainer?.centerViewController?.showFontsMenu()
     }
 }
+
+//test
+public func myepub_debugprint(_ items: Any...){
+    print(items)
+}
+
 

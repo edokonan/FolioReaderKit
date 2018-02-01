@@ -42,10 +42,7 @@ class SampleViewController: UIViewController {
 //        setupConfig(config, epubPath: bookPath)
         epubMng = EpubReaderManager.init(bookPath: bookPath!)
 //        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath!)
-        self.addChildViewController((epubMng?.novelVC!)!)
-        self.ContainerView.addSubview((epubMng?.novelVC!.view)!)
-        
-        self.ContainerView.layer.masksToBounds = true
+        epubMng?.displayInView(vc: self,ContainerView: ContainerView)
     }
     
 
@@ -61,26 +58,29 @@ class SampleViewController: UIViewController {
     @IBOutlet weak var ContainerView: UIView!
     @IBAction func openbook1(_ sender: Any) {
         guard let bookPath = Bundle.main.path(forResource: "鳳神醫02-測字符(m)+Qrcode", ofType: "epub") else { return }
-//        novelVC?.setupConfig(config, epubPath: bookPath)
-//        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath)
-//        epubMng?.config.contentDirection = .rightToLeft
         epubMng?.openBook(path: bookPath)
+        epubMng?.setTestMode(bool: true)
+        epubMng?.displayInView(vc: self,ContainerView: ContainerView)
         
-        self.addChildViewController((epubMng?.novelVC!)!)
-        self.ContainerView.addSubview((epubMng?.novelVC?.view)!)
-        self.ContainerView.layer.masksToBounds = true
-        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
-        self.loadViewIfNeeded()
+//        self.addChildViewController((epubMng?.novelVC!)!)
+//        self.ContainerView.addSubview((epubMng?.novelVC?.view)!)
+//        self.ContainerView.layer.masksToBounds = true
+//        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
+//        self.loadViewIfNeeded()
     }
     @IBAction func openbook2(_ sender: Any) {
-        guard let bookPath = Bundle.main.path(forResource: "NEC_TJ_J_Vol70_No2", ofType: "epub") else { return }
+//        epubMng?.novelVC?.removeFromParentViewController()
+//        epubMng?.novelVC?.view.removeFromSuperview()
+        guard let bookPath = Bundle.main.path(forResource: "危机与重构：唐帝国及其地方诸侯", ofType: "epub") else { return }
 //        epubMng?.config.contentDirection = .topToBottom
         epubMng?.openBook(path: bookPath)
-        self.addChildViewController((epubMng?.novelVC!)!)
-        self.ContainerView.addSubview((epubMng?.novelVC?.view)!)
-        self.ContainerView.layer.masksToBounds = true
-        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
-        self.loadViewIfNeeded()
+        
+        epubMng?.displayInView(vc: self,ContainerView: ContainerView)
+//        self.addChildViewController((epubMng?.novelVC!)!)
+//        self.ContainerView.addSubview((epubMng?.novelVC?.view)!)
+//        self.ContainerView.layer.masksToBounds = true
+//        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
+//        self.loadViewIfNeeded()
     }
     @IBAction func openfont(_ sender: Any) {
 //        novelVC?.centerViewController?.readerContainer?.centerViewController?.presentFontMenu()

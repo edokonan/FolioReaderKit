@@ -213,7 +213,6 @@ open class FolioReaderWebView: UIWebView {
     }
 
     // MARK: - Create and show menu
-
     func createMenu(options: Bool) {
         guard (self.readerConfig.useReaderMenuController == true) else {
             return
@@ -376,7 +375,7 @@ open class FolioReaderWebView: UIWebView {
             paginationBreakingMode = .page
             scrollView.bounces = false
             break
-        case .unpaginated, .bottomToTop:
+        default:
             scrollView.isPagingEnabled = false
             paginationMode = .unpaginated
             scrollView.bounces = true
