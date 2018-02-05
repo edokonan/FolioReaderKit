@@ -41,6 +41,8 @@ import UIKit
         //hidden Navigation On Tap
         config.shouldHideNavigationOnTap = true
         config.nerverDisplayNavigationOnTap = true
+        //hidden highLight page
+        config.hideHighlightPage = true
         
         //Print the chapter ID if one was clicked
         //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"

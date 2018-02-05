@@ -156,8 +156,11 @@ public struct ClassBasedOnClickListener {
     /// MARK: PageIndicator View
     open var MenuDisplayDayNightAndFontName = false
     
-    /// Should hide navigation bar on user tap
+    /// MARK: Should hide navigation bar on user tap
     open var nerverDisplayNavigationOnTap = false
+    
+    /// MARK: Hidden HighLight Page
+    open var hideHighlightPage = false
     
     /// hide the navigation bar and the bottom status view
     open var hideBars = false

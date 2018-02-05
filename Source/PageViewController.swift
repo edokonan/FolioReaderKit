@@ -38,12 +38,21 @@ class PageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        segmentedControl = UISegmentedControl(items: segmentedControlItems)
-        segmentedControl.addTarget(self, action: #selector(PageViewController.didSwitchMenu(_:)), for: UIControlEvents.valueChanged)
-        segmentedControl.selectedSegmentIndex = index
-        segmentedControl.setWidth(100, forSegmentAt: 0)
-        segmentedControl.setWidth(100, forSegmentAt: 1)
-        self.navigationItem.titleView = segmentedControl
+        if self.readerConfig.hideHighlightPage {
+            let titleView = UILabel()
+            titleView.text = segmentedControlItems[0]
+            titleView.font = UIFont(name: "HelveticaNeue-Medium", size: 17)
+            let width = titleView.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)).width
+            titleView.frame = CGRect(origin:CGPoint.zero, size:CGSize(width: width, height: 50))
+            self.navigationItem.titleView = titleView
+        }else{
+            segmentedControl = UISegmentedControl(items: segmentedControlItems)
+            segmentedControl.addTarget(self, action: #selector(PageViewController.didSwitchMenu(_:)), for: UIControlEvents.valueChanged)
+            segmentedControl.selectedSegmentIndex = index
+            segmentedControl.setWidth(100, forSegmentAt: 0)
+            segmentedControl.setWidth(100, forSegmentAt: 1)
+            self.navigationItem.titleView = segmentedControl
+        }
 
         viewList = [viewControllerOne, viewControllerTwo]
 
