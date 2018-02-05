@@ -10,8 +10,8 @@ import UIKit
 @objc open class EpubReaderManager: NSObject {
     
     @objc public var novelVC : FolioReaderContainer?
-    @objc public let reader = FolioReader.init()
-    @objc public let config = FolioReaderConfig()
+    @objc public var reader : FolioReader?
+    @objc public var config : FolioReaderConfig = FolioReaderConfig()
     @objc public var bookPath : String?
     
     override init(){
@@ -20,6 +20,9 @@ import UIKit
 
     @objc public  convenience init(bookPath: String){
         self.init()
+        
+        reader = FolioReader.init()
+        
         config.scrollDirection = .defaultVertical
         
         config.allowSharing = false
@@ -35,8 +38,9 @@ import UIKit
         //webview menu
         config.useReaderMenuController = true
         
-        //hidden
+        //hidden Navigation On Tap
         config.shouldHideNavigationOnTap = true
+        config.nerverDisplayNavigationOnTap = true
         
         //Print the chapter ID if one was clicked
         //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
@@ -45,17 +49,24 @@ import UIKit
             print("chapter with id: " + (attributeContent ?? "-") + " clicked")
         })
         config.classBasedOnClickListeners.append(listener)
-        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath)
+        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader!, epubPath: bookPath)
     }
     
     @objc public func openBook(path: String?){
+        novelVC?.removeFromParentViewController()
+        novelVC?.view.removeFromSuperview()
+        reader = nil
+        novelVC = nil
+        
         if let bookpath = path{
-            novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookpath)
+            reader = FolioReader.init()
+            novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader!, epubPath: bookpath)
         }
     }
     
     @objc public func displayInView(vc: UIViewController,ContainerView: UIView){
         if let novelvc = novelVC{
+            
             novelVC?.removeFromParentViewController()
             novelVC?.view.removeFromSuperview()
             

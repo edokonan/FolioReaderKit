@@ -12,7 +12,8 @@ import FontBlaster
 /// Reader container
 open class FolioReaderContainer: UIViewController {
     var shouldHideStatusBar = true
-    var shouldRemoveEpub = true
+    var shouldRemoveEpub = false
+//    var shouldRemoveEpub = true
     
     // Mark those property as public so they can accessed from other classes/subclasses.
     public var epubPath: String
@@ -136,7 +137,8 @@ open class FolioReaderContainer: UIViewController {
             self.centerNavigationController = UINavigationController(rootViewController: rootViewController)
         }
 
-        self.centerNavigationController?.setNavigationBarHidden(self.readerConfig.shouldHideNavigationOnTap, animated: false)
+    self.centerNavigationController?.setNavigationBarHidden(self.readerConfig.shouldHideNavigationOnTap, animated: false)
+        
         if let _centerNavigationController = self.centerNavigationController {
             self.view.addSubview(_centerNavigationController.view)
             self.addChildViewController(_centerNavigationController)

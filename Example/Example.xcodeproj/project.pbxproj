@@ -34,6 +34,12 @@
 		3AAA8BA81E9BB94B00A47E5A /* The Silver Chair.epub in Resources */ = {isa = PBXBuildFile; fileRef = 3AAA8B9F1E9BB94B00A47E5A /* The Silver Chair.epub */; };
 		3AAA8BA91E9BBFAF00A47E5A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3C4A3E1C3C6708009CBC8C /* MediaPlayer.framework */; };
 		3AAA8BAA1E9BBFB700A47E5A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3C4A3E1C3C6708009CBC8C /* MediaPlayer.framework */; };
+		5518A32220240C2C002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5518A32020240C2B002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub */; };
+		5518A32320240C2C002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5518A32020240C2B002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub */; };
+		5518A32420240C2C002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5518A32020240C2B002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub */; };
+		5518A32520240C2C002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5518A32120240C2B002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub */; };
+		5518A32620240C2C002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5518A32120240C2B002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub */; };
+		5518A32720240C2C002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub in Resources */ = {isa = PBXBuildFile; fileRef = 5518A32120240C2B002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub */; };
 		552EC441200F374A0014F64B /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552EC440200F374A0014F64B /* SampleViewController.swift */; };
 		552EC443200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */ = {isa = PBXBuildFile; fileRef = 552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */; };
 		552EC444200F506F0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub in Resources */ = {isa = PBXBuildFile; fileRef = 552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */; };
@@ -96,6 +102,8 @@
 		3AAA8B9F1E9BB94B00A47E5A /* The Silver Chair.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "The Silver Chair.epub"; sourceTree = "<group>"; };
 		3CE90B4095B5C7E6237EEBDD /* Pods-FolioReaderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FolioReaderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FolioReaderTests/Pods-FolioReaderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		44C24A346E8730FB52DC197B /* Pods_Storyboard_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Storyboard_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5518A32020240C2B002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "[田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub"; sourceTree = "<group>"; };
+		5518A32120240C2B002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "[上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub"; sourceTree = "<group>"; };
 		552EC440200F374A0014F64B /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
 		552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "鳳神醫02-測字符(m)+Qrcode.epub"; sourceTree = "<group>"; };
 		553949022021A3A200457502 /* 危机与重构：唐帝国及其地方诸侯.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "危机与重构：唐帝国及其地方诸侯.epub"; sourceTree = "<group>"; };
@@ -250,6 +258,8 @@
 		3AAA8B9D1E9BB94B00A47E5A /* Sample eBooks */ = {
 			isa = PBXGroup;
 			children = (
+				5518A32120240C2B002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub */,
+				5518A32020240C2B002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub */,
 				553949022021A3A200457502 /* 危机与重构：唐帝国及其地方诸侯.epub */,
 				55C97EBF2019D74000D105D7 /* NEC_TJ_J_Vol70_No2.epub */,
 				552EC442200F506E0014F64B /* 鳳神醫02-測字符(m)+Qrcode.epub */,
@@ -452,8 +462,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A42C2A21C0E3A8D000F2137 /* LaunchScreen.storyboard in Resources */,
+				5518A32520240C2C002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub in Resources */,
 				55C97EC02019D74000D105D7 /* NEC_TJ_J_Vol70_No2.epub in Resources */,
 				3AAA8BA31E9BB94B00A47E5A /* The Adventures Of Sherlock Holmes - Adventure I.epub in Resources */,
+				5518A32220240C2C002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub in Resources */,
 				3AAA8BA61E9BB94B00A47E5A /* The Silver Chair.epub in Resources */,
 				553949032021A3A200457502 /* 危机与重构：唐帝国及其地方诸侯.epub in Resources */,
 				3AAA8BA01E9BB94B00A47E5A /* Assets.xcassets in Resources */,
@@ -467,8 +479,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAA8BA51E9BB94B00A47E5A /* The Adventures Of Sherlock Holmes - Adventure I.epub in Resources */,
+				5518A32720240C2C002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub in Resources */,
 				55C97EC22019D74000D105D7 /* NEC_TJ_J_Vol70_No2.epub in Resources */,
 				3AAA8B981E9BB8CD00A47E5A /* Main.storyboard in Resources */,
+				5518A32420240C2C002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub in Resources */,
 				3AAA8B971E9BB8CD00A47E5A /* LaunchScreen.storyboard in Resources */,
 				553949052021A3A200457502 /* 危机与重构：唐帝国及其地方诸侯.epub in Resources */,
 				3AAA8BA81E9BB94B00A47E5A /* The Silver Chair.epub in Resources */,
@@ -489,8 +503,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AAA8BA41E9BB94B00A47E5A /* The Adventures Of Sherlock Holmes - Adventure I.epub in Resources */,
+				5518A32620240C2C002577D6 /* [上橋菜穂子] 守り人シリーズ01 精霊の守り人.epub in Resources */,
 				55C97EC12019D74000D105D7 /* NEC_TJ_J_Vol70_No2.epub in Resources */,
 				3AAA8B881E9BB8B700A47E5A /* LaunchScreen.storyboard in Resources */,
+				5518A32320240C2C002577D6 /* [田中芳樹] 銀河英雄伝説 第01巻 黎明篇.epub in Resources */,
 				3AAA8B891E9BB8B700A47E5A /* Main.storyboard in Resources */,
 				553949042021A3A200457502 /* 危机与重构：唐帝国及其地方诸侯.epub in Resources */,
 				3AAA8BA71E9BB94B00A47E5A /* The Silver Chair.epub in Resources */,

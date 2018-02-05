@@ -68,19 +68,26 @@ class SampleViewController: UIViewController {
 //        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
 //        self.loadViewIfNeeded()
     }
+    
+    var i = 0
     @IBAction func openbook2(_ sender: Any) {
-//        epubMng?.novelVC?.removeFromParentViewController()
-//        epubMng?.novelVC?.view.removeFromSuperview()
-        guard let bookPath = Bundle.main.path(forResource: "危机与重构：唐帝国及其地方诸侯", ofType: "epub") else { return }
-//        epubMng?.config.contentDirection = .topToBottom
+        if i == 0{
+            guard let Path = Bundle.main.path(forResource: "[田中芳樹] 銀河英雄伝説 第01巻 黎明篇", ofType: "epub") else { return }
+            bookPath = Path
+            i = 1
+        }
+        else if i == 1{
+            guard let Path = Bundle.main.path(forResource: "[上橋菜穂子] 守り人シリーズ01 精霊の守り人", ofType: "epub") else { return }
+            bookPath = Path
+            i = 2
+        }
+        else if i > 1{
+            guard let Path = Bundle.main.path(forResource: "危机与重构：唐帝国及其地方诸侯", ofType: "epub") else { return }
+            bookPath = Path
+            i = 0
+        }
         epubMng?.openBook(path: bookPath)
-        
         epubMng?.displayInView(vc: self,ContainerView: ContainerView)
-//        self.addChildViewController((epubMng?.novelVC!)!)
-//        self.ContainerView.addSubview((epubMng?.novelVC?.view)!)
-//        self.ContainerView.layer.masksToBounds = true
-//        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
-//        self.loadViewIfNeeded()
     }
     @IBAction func openfont(_ sender: Any) {
 //        novelVC?.centerViewController?.readerContainer?.centerViewController?.presentFontMenu()

@@ -457,11 +457,15 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         guard self.readerConfig.shouldHideNavigationOnTap == true else {
             return
         }
-
+        if self.readerConfig.nerverDisplayNavigationOnTap == true{
+            return
+        }
+        
         let shouldHide = !self.navigationController!.isNavigationBarHidden
         if shouldHide == false {
             self.configureNavBar()
         }
+        
 
         self.updateBarsStatus(shouldHide)
     }

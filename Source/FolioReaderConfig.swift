@@ -156,6 +156,9 @@ public struct ClassBasedOnClickListener {
     /// MARK: PageIndicator View
     open var MenuDisplayDayNightAndFontName = false
     
+    /// Should hide navigation bar on user tap
+    open var nerverDisplayNavigationOnTap = false
+    
     /// hide the navigation bar and the bottom status view
     open var hideBars = false
 
@@ -183,9 +186,6 @@ public struct ClassBasedOnClickListener {
     /// Go to saved position when open a book
     open var loadSavedPositionForCurrentBook = true
     
-//    // Auto scroll To current chapter's top When Chapter Changed
-//    open var scrollToTopWhenChangeChapter = false
- 
     //
     open var contentDirection: CharpterContentDirection = CharpterContentDirection.unpaginated
     
