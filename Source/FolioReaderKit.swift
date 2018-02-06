@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 // MARK: - Internal constants
-
 internal let kApplicationDocumentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+internal var kUnZipDocumentsDirectory = "epub.temp"
+
 internal let kCurrentFontFamily = "com.folioreader.kCurrentFontFamily"
 internal let kCurrentFontSize = "com.folioreader.kCurrentFontSize"
 internal let kCurrentAudioRate = "com.folioreader.kCurrentAudioRate"
