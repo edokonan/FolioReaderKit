@@ -208,7 +208,7 @@ public struct ClassBasedOnClickListener {
     // MARK: Realm
 
     /// Realm configuration for storing highlights
-    open var realmConfiguration         = Realm.Configuration()
+    open var realmConfiguration         = Realm.Configuration(fileURL: URL.init(fileURLWithPath: kApplicationDocumentsDirectory.appendingPathComponent(kUnZipDocumentsDirectory).appendingPathComponent("default.realm")))
 
     // MARK: Localized strings
 
