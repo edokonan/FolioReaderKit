@@ -51,7 +51,7 @@ import UIKit
             print("chapter with id: " + (attributeContent ?? "-") + " clicked")
         })
         config.classBasedOnClickListeners.append(listener)
-        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader!, epubPath: bookPath)
+        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader!, epubPath: bookPath, removeEpub: false)
     }
     
     @objc public func openBook(path: String?){
@@ -62,13 +62,12 @@ import UIKit
         
         if let bookpath = path{
             reader = FolioReader.init()
-            novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader!, epubPath: bookpath)
+            novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader!, epubPath: bookpath, removeEpub: false)
         }
     }
     
     @objc public func displayInView(vc: UIViewController,ContainerView: UIView){
         if let novelvc = novelVC{
-            
             novelVC?.removeFromParentViewController()
             novelVC?.view.removeFromSuperview()
             

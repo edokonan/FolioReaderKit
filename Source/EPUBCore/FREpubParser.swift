@@ -18,7 +18,7 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
 
     let book = FRBook()
     private var resourcesBasePath = ""
-    private var shouldRemoveEpub = true
+    private var shouldRemoveEpub = false
     private var epubPathToRemove: String?
 
     /// Parse the Cover Image from an epub file.
@@ -74,7 +74,7 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
     ///   - unzipPath: The path to unzip
     /// - Returns: `FRBook` Object
     /// - Throws: `FolioReaderError`
-    func readEpub(epubPath withEpubPath: String, removeEpub: Bool = true, unzipPath: String? = nil) throws -> FRBook {
+    func readEpub(epubPath withEpubPath: String, removeEpub: Bool = false, unzipPath: String? = nil) throws -> FRBook {
         epubPathToRemove = withEpubPath
         shouldRemoveEpub = removeEpub
 
