@@ -157,12 +157,17 @@ extension FolioReader {
     /// - Parameters:
     ///   - parentViewController: View Controller that will present the reader container.
     ///   - epubPath: String representing the path on the disk of the ePub file. Must not be nil nor empty string.
+	///   - unzipPath: Path to unzip the compressed epub.
     ///   - config: FolioReader configuration.
     ///   - shouldRemoveEpub: Boolean to remove the epub or not. Default true.
     ///   - animated: Pass true to animate the presentation; otherwise, pass false.
+<<<<<<< HEAD
     open func presentReader(parentViewController: UIViewController, withEpubPath epubPath: String, andConfig config: FolioReaderConfig, shouldRemoveEpub: Bool = false, animated:
+=======
+    open func presentReader(parentViewController: UIViewController, withEpubPath epubPath: String, unzipPath: String? = nil, andConfig config: FolioReaderConfig, shouldRemoveEpub: Bool = true, animated:
+>>>>>>> master
         Bool = true) {
-        var readerContainer = FolioReaderContainer(withConfig: config, folioReader: self, epubPath: epubPath, removeEpub: shouldRemoveEpub)
+        var readerContainer = FolioReaderContainer(withConfig: config, folioReader: self, epubPath: epubPath, unzipPath: unzipPath, removeEpub: shouldRemoveEpub)
         self.readerContainer = readerContainer
         parentViewController.present(readerContainer, animated: animated, completion: nil)
         addObservers()
@@ -272,7 +277,7 @@ extension FolioReader {
     /// Check the current scroll direction. Default .defaultVertical
     open var currentScrollDirection: Int {
         get {
-            guard let value = self.defaults.integer(forKey: kCurrentScrollDirection) as? Int else {
+            guard let value = self.defaults.value(forKey: kCurrentScrollDirection) as? Int else {
                 return FolioReaderScrollDirection.defaultVertical.rawValue
             }
 
@@ -309,7 +314,7 @@ extension FolioReader {
     }
 }
 
-// MARK: - Image Cover
+// MARK: - Metadata
 
 extension FolioReader {
 
@@ -319,16 +324,16 @@ extension FolioReader {
     /**
      Read Cover Image and Return an `UIImage`
      */
-    open class func getCoverImage(_ epubPath: String, unzipPath: String? = nil) throws -> UIImage? {
+    open class func getCoverImage(_ epubPath: String, unzipPath: String? = nil) throws -> UIImage {
         return try FREpubParser().parseCoverImage(epubPath, unzipPath: unzipPath)
     }
 
-    open class func getTitle(_ epubPath: String) throws -> String? {
-        return try FREpubParser().parseTitle(epubPath)
+    open class func getTitle(_ epubPath: String, unzipPath: String? = nil) throws -> String {
+        return try FREpubParser().parseTitle(epubPath, unzipPath: unzipPath)
     }
 
-    open class func getAuthorName(_ epubPath: String) throws-> String? {
-        return try FREpubParser().parseAuthorName(epubPath)
+    open class func getAuthorName(_ epubPath: String, unzipPath: String? = nil) throws-> String {
+        return try FREpubParser().parseAuthorName(epubPath, unzipPath: unzipPath)
     }
 }
 
