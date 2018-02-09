@@ -331,7 +331,21 @@ extension FolioReader {
         return try FREpubParser().parseAuthorName(epubPath, unzipPath: unzipPath)
     }
 }
-
+extension FolioReader{
+    /// move to page at current chapter
+    @objc open func movetoPageNum(num:Int , totalpage: Int) {
+        guard let bookId = self.readerContainer?.book.name,
+            let currentPage = self.readerCenter?.currentPage,
+            let webView = currentPage.webView else {
+                return
+        }
+        print(webView.pageLength)
+        print(webView.pageCount)
+        print(webView.paginationBreakingMode)
+        print(webView.gapBetweenPages)
+        self.readerCenter?.currentPage?.scrollPageToPageNum(num, totalpage: totalpage, animated: false)
+    }
+}
 // MARK: - Exit, save and close FolioReader
 
 extension FolioReader {

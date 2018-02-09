@@ -7,12 +7,21 @@
 
 import UIKit
 
+
+@objc public protocol EpubReaderManagerDelegate {
+    func LoadFileFinished()
+    func PageChangedInChapter(TotalPage : Int, CurrentPage : Int)
+    func OnTapOverlayView()
+}
+
 @objc open class EpubReaderManager: NSObject {
     
     @objc public var novelVC : FolioReaderContainer?
     @objc public var reader : FolioReader?
     @objc public var config : FolioReaderConfig = FolioReaderConfig()
     @objc public var bookPath : String?
+    /// Epub Reader Manager Delegate
+    open weak var managerDelegate: EpubReaderManagerDelegate?
     
     override init(){
         super.init()
@@ -40,7 +49,7 @@ import UIKit
         
         //hidden Navigation On Tap
         config.shouldHideNavigationOnTap = true
-        config.nerverDisplayNavigationOnTap = true
+        config.neverDisplayNavigationOnTap = true
         //hidden highLight page
         config.hideHighlightPage = false
         
@@ -48,6 +57,7 @@ import UIKit
         //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
         //To know if a user tapped on a chapter we can listen to events on the class "chapter" and receive the id value
         let listener = ClassBasedOnClickListener(schemeName: "chaptertapped", querySelector: ".chapter", attributeName: "id", onClickAction: { (attributeContent: String?, touchPointRelativeToWebView: CGPoint?) in
+            self.managerDelegate?.OnTapOverlayView()
             print("chapter with id: " + (attributeContent ?? "-") + " clicked")
         })
         config.classBasedOnClickListeners.append(listener)
@@ -67,7 +77,7 @@ import UIKit
     }
     
     @objc public func displayInView(vc: UIViewController,ContainerView: UIView){
-        if let novelvc = novelVC{
+        if novelVC != nil{
             novelVC?.removeFromParentViewController()
             novelVC?.view.removeFromSuperview()
             
@@ -82,11 +92,22 @@ import UIKit
         config.TestMode = bool
     }
     
+    @objc public  func setEpubManagerDelegate(delegate:EpubReaderManagerDelegate){
+        if let center = reader?.readerCenter{
+            center.managerDelegate = delegate
+            self.managerDelegate = delegate
+        }
+    }
+    
     @objc public  func showChapterList(){
         novelVC?.centerViewController?.readerContainer?.centerViewController?.showChapterList()
     }
     @objc public func showFontsMenu(){
         novelVC?.centerViewController?.readerContainer?.centerViewController?.showFontsMenu()
+    }
+    @objc open func movetoPageNum(num:Int,totalpage:Int) {
+        self.reader?.movetoPageNum(num: num, totalpage: totalpage)
+        
     }
 }
 

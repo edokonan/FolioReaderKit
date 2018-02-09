@@ -514,7 +514,6 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
      */
     open func scrollPageToOffset(_ offset: CGFloat, offsetRate: CGFloat? = 0, animated: Bool) {
 //        var pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: offset), CGPoint(x: offset, y: 0), CGPoint(x: 0, y: offset))
-        
         self.webView?.alpha = 0
         var pageOffsetPoint = CGPoint(x: 0, y: offset)
         if let rate = offsetRate, rate>0{
@@ -568,6 +567,44 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         })
     }
 
+    open func scrollPageToPageNum(_ pageNum:Int,totalpage:Int, animated: Bool) {
+        self.webView?.alpha = 0
+        myepub_debugprint("-----scrollPageToPageNum---------")
+        myepub_debugprint("\(pageNum)  \(totalpage)")
+        let rate :CGFloat = CGFloat(Float(pageNum-1) / Float(totalpage))
+        var pageOffsetPoint = CGPoint(x: 0, y: 0)
+        if  rate>=0{
+            switch  self.readerConfig.scrollDirection {
+            case .horizontal, .horizontalWithVerticalContent:
+                var offset = (self.webView?.scrollView.contentSize.width)! * rate
+                let pagenum = Int(offset/(self.webView?.scrollView.bounds.width)!)
+                offset = CGFloat(pagenum) * (self.webView?.scrollView.bounds.width)!
+                switch self.readerConfig.contentDirection {
+                case .rightToLeft:
+                    var offsetx = (self.webView?.scrollView.contentSize.width)! - offset - (self.webView?.scrollView.bounds.width)!
+                    if offsetx<0 {offsetx=0}
+                    pageOffsetPoint = CGPoint(x: offsetx, y:0 )
+                    break
+                default :
+                    pageOffsetPoint = CGPoint(x: offset, y:0 )
+                    break
+                }
+            default:
+                var offset = (self.webView?.scrollView.contentSize.height)! * rate
+                let pagenum = Int(offset/(self.webView?.scrollView.bounds.height)!)
+                offset = (self.webView?.scrollView.bounds.height)! * CGFloat(pagenum)
+                pageOffsetPoint = CGPoint(x: 0, y: offset)
+                break
+            }
+        }
+        let delay = 0.2 * Double(NSEC_PER_SEC) // 0.4 seconds * nanoseconds per seconds
+        let dispatchTime = (DispatchTime.now() + (Double(Int64(delay)) / Double(NSEC_PER_SEC)))
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime, execute: {
+            self.webView?.scrollView.setContentOffset(pageOffsetPoint, animated: animated)
+            self.folioReader.readerCenter?.resetIndicatorViewPage(self)
+            self.webView?.alpha = 1
+        })
+    }
     /**
      Scrolls the page to bottom
      */

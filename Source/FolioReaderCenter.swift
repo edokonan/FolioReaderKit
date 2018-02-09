@@ -41,6 +41,11 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     /// This delegate receives the events from current page
     open weak var pageDelegate: FolioReaderPageDelegate?
 
+    
+    /// Epub Reader Manager Delegate
+    open weak var managerDelegate: EpubReaderManagerDelegate?
+    
+    
     /// The base reader container
     open weak var readerContainer: FolioReaderContainer?
 
@@ -457,7 +462,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         guard self.readerConfig.shouldHideNavigationOnTap == true else {
             return
         }
-        if self.readerConfig.nerverDisplayNavigationOnTap == true{
+        if self.readerConfig.neverDisplayNavigationOnTap == true{
             return
         }
         
@@ -801,6 +806,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             self.pageIndicatorView?.chaptertitle = ""
         }
         self.pageIndicatorView?.currentPage = CurrentWebViewPageNum
+        
+        if self.managerDelegate != nil {
+            self.managerDelegate?.PageChangedInChapter(TotalPage: totalPages, CurrentPage: CurrentWebViewPageNum)
+        }
     }
     
 

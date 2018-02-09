@@ -323,6 +323,7 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
     // MARK: - Gestures
     
     @objc func tapGesture() {
+        debugPrint("------------tapGesture---------")
         dismiss()
         
         if (self.readerConfig.shouldHideNavigationOnTap == false) {
@@ -331,6 +332,8 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        debugPrint("------------gestureRecognizer---------")
         if gestureRecognizer is UITapGestureRecognizer && touch.view == view {
             return true
         }
