@@ -459,6 +459,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func toggleBars() {
+        self.managerDelegate?.OnTapOverlayView()
         guard self.readerConfig.shouldHideNavigationOnTap == true else {
             return
         }
@@ -698,6 +699,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func updateCurrentPage(_ page: FolioReaderPage? = nil, completion: (() -> Void)? = nil) {
+        page?.webView?.backgroundColor = readerConfig.WebViewBackGroudColor
+        page?.backgroundColor = readerConfig.ReaderPageBackGroudColor
         if let page = page {
             currentPage = page
             self.previousPageNumber = page.pageNumber-1

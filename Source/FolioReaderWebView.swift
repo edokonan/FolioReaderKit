@@ -214,6 +214,9 @@ open class FolioReaderWebView: UIWebView {
 
     // MARK: - Create and show menu
     func createMenu(options: Bool) {
+        if !self.readerConfig.hideWebViewMenu {
+            return
+        }
         guard (self.readerConfig.useReaderMenuController == true) else {
             return
         }

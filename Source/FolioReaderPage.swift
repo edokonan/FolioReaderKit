@@ -90,7 +90,8 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
             webView?.backgroundColor = .clear
             self.contentView.addSubview(webView!)
             
-            self.contentView.backgroundColor = self.readerConfig.PageBackGroudColor
+            webView?.backgroundColor = self.readerConfig.WebViewBackGroudColor
+            self.contentView.backgroundColor = self.readerConfig.CollectionBackGroudColor
         }
         webView?.delegate = self
 
@@ -726,6 +727,9 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
     // MARK: UIMenu visibility
 
     override open func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if !self.readerConfig.hideWebViewMenu {
+            return false
+        }
         guard let webView = webView else { return false }
 
         if UIMenuController.shared.menuItems?.count == 0 {

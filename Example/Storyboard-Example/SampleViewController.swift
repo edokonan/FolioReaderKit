@@ -39,16 +39,20 @@ class SampleViewController: UIViewController {
 //        config.classBasedOnClickListeners.append(listener)
 //
         bookPath = Bundle.main.path(forResource: "The Silver Chair", ofType: "epub")
-//        setupConfig(config, epubPath: bookPath)
         epubMng = EpubReaderManager.init(bookPath: bookPath!)
-//        novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader, epubPath: bookPath!)
         epubMng?.displayInView(vc: self,ContainerView: ContainerView)
+        epubMng?.setEpubManagerDelegate(delegate: self)
+        
+        
+//        epubMng = EpubReaderManager.init(bookPath: bookPath!)
+//        epubMng?.displayInView(vc: self,ContainerView: ContainerView)
+//        epubMng?.setEpubManagerDelegate(delegate: self)
     }
     
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
+//        epubMng?.novelVC?.view.frame = self.ContainerView.bounds
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,4 +106,18 @@ class SampleViewController: UIViewController {
     func initConfig(){
     }
     
+}
+extension SampleViewController:EpubReaderManagerDelegate{
+    func LoadFileFinished() {
+        
+    }
+    func PageChangedInChapter(TotalPage: Int, CurrentPage: Int) {
+        print("------PageChangedInChapter--------\(CurrentPage)/\(TotalPage)")
+
+    }
+    
+    func OnTapOverlayView() {
+        print("------OnTapOverlayView--------")
+
+    }
 }

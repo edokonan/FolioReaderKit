@@ -44,7 +44,9 @@ import UIKit
         
         config.TestMode = false
         
-        //webview menu
+        config.hideWebViewMenu = true
+        
+        //hidden webview menu
         config.useReaderMenuController = true
         
         //hidden Navigation On Tap
@@ -54,10 +56,8 @@ import UIKit
         config.hideHighlightPage = false
         
         //Print the chapter ID if one was clicked
-        //A chapter in "The Silver Chair" looks like this "<section class="chapter" title="Chapter I" epub:type="chapter" id="id70364673704880">"
-        //To know if a user tapped on a chapter we can listen to events on the class "chapter" and receive the id value
         let listener = ClassBasedOnClickListener(schemeName: "chaptertapped", querySelector: ".chapter", attributeName: "id", onClickAction: { (attributeContent: String?, touchPointRelativeToWebView: CGPoint?) in
-            self.managerDelegate?.OnTapOverlayView()
+//            self.managerDelegate?.OnTapOverlayView()
             print("chapter with id: " + (attributeContent ?? "-") + " clicked")
         })
         config.classBasedOnClickListeners.append(listener)

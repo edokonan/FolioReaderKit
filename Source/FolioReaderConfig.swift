@@ -134,7 +134,12 @@ public struct ClassBasedOnClickListener {
     open var PagePaddingTop:CGFloat = 2
     open var PagePaddingBottom:CGFloat = 20
     open var PageFrame:CGRect?
-    open var PageBackGroudColor = UIColor.clear
+    // MARK: Page BackGroudColor For TestMode
+    
+    open var ReaderPageBackGroudColor = UIColor.clear
+    open var CollectionBackGroudColor = UIColor.clear
+    open var WebViewBackGroudColor = UIColor.clear
+    
     // MARK: Page Settings
     private var testMode = false
     open var TestMode: Bool {
@@ -144,17 +149,25 @@ public struct ClassBasedOnClickListener {
         set(invalue){
             self.testMode=invalue
             if invalue{
-                PageBackGroudColor = UIColor.green
+                CollectionBackGroudColor = UIColor.green
+                WebViewBackGroudColor = UIColor.red
+                ReaderPageBackGroudColor = UIColor.brown
             }else{
-                PageBackGroudColor = UIColor.clear
+                CollectionBackGroudColor = UIColor.clear
+                WebViewBackGroudColor = UIColor.clear
+                ReaderPageBackGroudColor = UIColor.clear
             }
         }
     }
+    
     /// MARK: PageIndicator View
     open var hideMinutesLabel = true
     
     /// MARK: PageIndicator View
     open var MenuDisplayDayNightAndFontName = false
+    
+    /// MARK: WebView Menu hide
+    open var hideWebViewMenu = false
     
     /// MARK: Should hide navigation bar on user tap
     open var neverDisplayNavigationOnTap = false
