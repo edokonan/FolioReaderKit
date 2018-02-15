@@ -358,11 +358,23 @@ open class FolioReaderWebView: UIWebView {
                     paginationMode = .topToBottom
                     paginationBreakingMode = .page
                     scrollView.bounces = false
+                    
+                    // MARK: Page Settings
+                    self.readerConfig.PagePaddingLeft = 10
+                    self.readerConfig.PagePaddingRight = 10
+                    self.readerConfig.PagePaddingTop = 20
+                    self.readerConfig.PagePaddingBottom = 20
                     break
             case .horizontal:
                     SetPageScrollDirectionWhenHorizontal()
+                    
+                    self.readerConfig.PagePaddingLeft = 10
+                    self.readerConfig.PagePaddingRight = 10
+                    self.readerConfig.PagePaddingTop = 20
+                    self.readerConfig.PagePaddingBottom = 20
                     break
             }
+        
     }
     func SetPageScrollDirectionWhenHorizontal(){
         switch self.readerConfig.contentDirection {

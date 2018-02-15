@@ -19,4 +19,6 @@ let is_iPhoneX: Bool = {
 }()
 
 let iPhoneX_Portrait_Bottom_Height:CGFloat = 34
+let iPhoneX_Portrait_Top_Height:CGFloat = 44
+let iPhone_StatusBar_Height:CGFloat = 20
 

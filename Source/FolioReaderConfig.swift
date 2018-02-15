@@ -129,13 +129,13 @@ public struct ClassBasedOnClickListener {
     open lazy var mediaOverlayColor: UIColor! = self.tintColor
 
     // MARK: Page Settings
-    open var PagePaddingLeft:CGFloat = 5
-    open var PagePaddingRight:CGFloat = 5
-    open var PagePaddingTop:CGFloat = 2
+    open var PagePaddingLeft:CGFloat = 10
+    open var PagePaddingRight:CGFloat = 10
+    open var PagePaddingTop:CGFloat = 20
     open var PagePaddingBottom:CGFloat = 20
-    open var PageFrame:CGRect?
-    // MARK: Page BackGroudColor For TestMode
+    open var WebViewFrame:CGRect?
     
+    // MARK: Page BackGroudColor For TestMode
     open var ReaderPageBackGroudColor = UIColor.clear
     open var CollectionBackGroudColor = UIColor.clear
     open var WebViewBackGroudColor = UIColor.clear
@@ -159,8 +159,11 @@ public struct ClassBasedOnClickListener {
             }
         }
     }
+    /// MARK: PageIndicator View
+    open var hideSliderView = true
     
     /// MARK: PageIndicator View
+//    open var hidePageIndicatorView = true
     open var hideMinutesLabel = true
     
     /// MARK: PageIndicator View

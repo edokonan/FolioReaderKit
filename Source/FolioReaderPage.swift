@@ -83,9 +83,9 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
             webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 //            webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleLeftMargin,.flexibleTopMargin,.flexibleRightMargin,.flexibleBottomMargin]
             webView?.dataDetectorTypes = .link
-            webView?.scrollView.showsVerticalScrollIndicator = false
 //            webView?.scrollView.showsHorizontalScrollIndicator = false
 //            webView?.scrollView.showsVerticalScrollIndicator = true
+            webView?.scrollView.showsVerticalScrollIndicator = true
             webView?.scrollView.showsHorizontalScrollIndicator = true
             webView?.backgroundColor = .clear
             self.contentView.addSubview(webView!)
@@ -128,14 +128,14 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         webView?.frame = webViewFrame()
     }
 
-    func webViewFrame() -> CGRect {
-        guard (self.readerConfig.hideBars == false) else {
-            return bounds
-        }
-
-        let statusbarHeight = UIApplication.shared.statusBarFrame.size.height
-        let navBarHeight = self.folioReader.readerCenter?.navigationController?.navigationBar.frame.size.height ?? CGFloat(0)
-        let navTotal = self.readerConfig.shouldHideNavigationOnTap ? 0 : statusbarHeight + navBarHeight
+//    func webViewFrame() -> CGRect {
+//        guard (self.readerConfig.hideBars == false) else {
+//            return bounds
+//        }
+//
+//        let statusbarHeight = UIApplication.shared.statusBarFrame.size.height
+//        let navBarHeight = self.folioReader.readerCenter?.navigationController?.navigationBar.frame.size.height ?? CGFloat(0)
+//        let navTotal = self.readerConfig.shouldHideNavigationOnTap ? 0 : statusbarHeight + navBarHeight
 //        let paddingTop: CGFloat = 20
 //        let paddingBottom: CGFloat = 20
 //        var frame = CGRect(
@@ -144,15 +144,21 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
 //            width: bounds.width,
 //            height: self.readerConfig.isDirection(bounds.height - navTotal, bounds.height - navTotal - paddingTop - paddingBottom, bounds.height - navTotal)
 //        )
+//        return frame
+//    }
+    //
+    func webViewFrame() -> CGRect {
+//        let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : 0
+//        let iphonex_bottomoffset = is_iPhoneX ? iPhoneX_Portrait_Bottom_Height : 0
         var frame = CGRect(
             x: bounds.origin.x + self.readerConfig.PagePaddingLeft,
-            y: bounds.origin.y + navTotal + self.readerConfig.PagePaddingTop,
+            y: bounds.origin.y,
             width: bounds.width - self.readerConfig.PagePaddingLeft - self.readerConfig.PagePaddingRight,
-            height: bounds.height - navTotal - self.readerConfig.PagePaddingTop - self.readerConfig.PagePaddingBottom
+            height: bounds.height
         )
-        self.readerConfig.PageFrame = frame
-        myepub_debugprint(self.readerConfig.PageFrame)
-        return frame
+        self.readerConfig.WebViewFrame = frame
+        myepub_debugprint(self.readerConfig.WebViewFrame)
+        return self.readerConfig.WebViewFrame!
     }
     
     func loadHTMLString(_ htmlContent: String!, baseURL: URL!) {

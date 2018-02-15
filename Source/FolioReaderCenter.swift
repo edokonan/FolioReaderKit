@@ -202,7 +202,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         self.scrollScrubber = ScrollScrubber(frame: frameForScrollScrubber(), withReaderContainer: readerContainer)
         self.scrollScrubber?.delegate = self
         if let scrollScrubber = scrollScrubber {
-            view.addSubview(scrollScrubber.slider)
+            if self.readerConfig.hideSliderView == false{
+                view.addSubview(scrollScrubber.slider)
+            }
         }
     }
 
@@ -227,7 +229,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     // MARK: Layout
-
     /**
      Enable or disable the scrolling between chapters (`FolioReaderPage`s). If this is enabled it's only possible to read the current chapter. If another chapter should be displayed is has to be triggered programmatically with `changePageWith`.
 
@@ -238,11 +239,35 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     fileprivate func updateSubviewFrames() {
+        self.view.frame = ReaderCenterViewFrame()
+//        self.collectionView.frame = ReaderCenterViewFrame()
         self.pageIndicatorView?.frame = self.frameForPageIndicatorView()
         self.scrollScrubber?.frame = self.frameForScrollScrubber()
     }
-
+    
+    
+    //iphonex (0,44,375,714)
+    //else (0,20,375,714)
+    func ReaderCenterViewFrame() -> CGRect {
+        let screenbounds = UIScreen.main.bounds
+        let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : iPhone_StatusBar_Height
+        let iphonex_bottomoffset = is_iPhoneX ? iPhoneX_Portrait_Bottom_Height : 0
+        let frame = CGRect(
+            x: screenbounds.origin.x,
+            y: screenbounds.origin.y + iphonex_topoffset ,
+            width: screenbounds.width,
+            height: screenbounds.height - iphonex_topoffset - iphonex_bottomoffset
+        )
+        myepub_debugprint(frame)
+        return frame
+    }
+    
+    
     fileprivate func frameForPageIndicatorView() -> CGRect {
+        if self.readerConfig.hidePageIndicator{
+            return CGRect(x: 0 , y: 0, width: 0, height: 0)
+        }
+        
         var bounds = CGRect(x: 0, y: screenBounds.size.height-pageIndicatorHeight, width: screenBounds.size.width, height: pageIndicatorHeight)
         
         if #available(iOS 11.0, *) {
@@ -253,6 +278,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     fileprivate func frameForScrollScrubber() -> CGRect {
+        if self.readerConfig.hideSliderView{
+            return CGRect(x: 0 , y: 0, width: 0, height: 0)
+        }
+        
         let scrubberY: CGFloat = ((self.readerConfig.shouldHideNavigationOnTap == true || self.readerConfig.hideBars == true) ? 50 : 74)
 //        return CGRect(x: self.pageWidth + 10, y: scrubberY, width: 40, height: (self.pageHeight - 100))
         let rect = CGRect(x: self.pageWidth + 5 , y: scrubberY, width: 20, height: (self.pageHeight - 100))
@@ -453,6 +482,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         if let frame = self.currentPage?.frame,
             frame.origin.y < 0,
             self.readerConfig.scrollDirection == .horizontal{
+            debugPrint("---resetPageFrame--")
             debugPrint(frame)
             self.currentPage?.frame.origin = CGPoint.init(x: frame.origin.x, y: 0)
         }
@@ -469,6 +499,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     func showBars() {
+        if self.readerConfig.hideBars {
+            return
+        }
+        
         self.configureNavBar()
         self.updateBarsStatus(false)
     }

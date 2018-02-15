@@ -49,11 +49,18 @@ import UIKit
         //hidden webview menu
         config.useReaderMenuController = true
         
+        //hidden
+        config.hideBars = true
+        config.hidePageIndicator = true
+        
         //hidden Navigation On Tap
         config.shouldHideNavigationOnTap = true
         config.neverDisplayNavigationOnTap = true
+        
         //hidden highLight page
         config.hideHighlightPage = false
+        
+        
         
         //Print the chapter ID if one was clicked
         let listener = ClassBasedOnClickListener(schemeName: "chaptertapped", querySelector: ".chapter", attributeName: "id", onClickAction: { (attributeContent: String?, touchPointRelativeToWebView: CGPoint?) in
