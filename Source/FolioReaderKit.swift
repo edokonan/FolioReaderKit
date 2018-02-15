@@ -368,8 +368,7 @@ extension FolioReader {
             "pageOffsetY": webView.scrollView.contentOffset.y,
             "pageOffsetRate": getpageOffsetRate()
             ] as [String : Any]
-        myepub_debugprint("-------saveReaderState------")
-        myepub_debugprint(position)
+        myepub_debugprint("-------saveReaderState:\(position) ")
         self.savedPositionForCurrentBook = position
     }
     open func getpageOffsetRate() -> CGFloat{

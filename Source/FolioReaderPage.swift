@@ -151,9 +151,9 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
 //        let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : 0
 //        let iphonex_bottomoffset = is_iPhoneX ? iPhoneX_Portrait_Bottom_Height : 0
         var frame = CGRect(
-            x: bounds.origin.x + self.readerConfig.PagePaddingLeft,
+            x: bounds.origin.x,
             y: bounds.origin.y,
-            width: bounds.width - self.readerConfig.PagePaddingLeft - self.readerConfig.PagePaddingRight,
+            width: bounds.width,
             height: bounds.height
         )
         self.readerConfig.WebViewFrame = frame
@@ -571,6 +571,9 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
             self.webView?.scrollView.setContentOffset(pageOffsetPoint, animated: animated)
             self.folioReader.readerCenter?.resetIndicatorViewPage(self)
             self.webView?.alpha = 1
+            
+             self.folioReader.readerCenter?.setCollectionViewProgressiveDirection()
+             self.folioReader.readerCenter?.setPageProgressiveDirection(self)
         })
     }
 

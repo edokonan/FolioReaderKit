@@ -74,6 +74,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     var previousPageNumber: Int = 0
     var currentPageNumber: Int = 0
     
+    //collection pagesize
     var pageWidth: CGFloat = 0.0
     var pageHeight: CGFloat = 0.0
 
@@ -143,7 +144,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
 
         screenBounds = self.getScreenBounds()
-        
         setPageSize(UIApplication.shared.statusBarOrientation)
 
         // Layout
@@ -224,8 +224,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         screenBounds = self.getScreenBounds()
         loadingView.center = view.center
 
-        setPageSize(UIApplication.shared.statusBarOrientation)
         updateSubviewFrames()
+        setPageSize(UIApplication.shared.statusBarOrientation)
     }
 
     // MARK: Layout
@@ -239,10 +239,11 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     }
 
     fileprivate func updateSubviewFrames() {
-        self.view.frame = ReaderCenterViewFrame()
-//        self.collectionView.frame = ReaderCenterViewFrame()
+//        self.view.frame = ReaderCenterViewFrame()
+        self.collectionView.frame = ReaderCenterViewFrame()
         self.pageIndicatorView?.frame = self.frameForPageIndicatorView()
         self.scrollScrubber?.frame = self.frameForScrollScrubber()
+        
     }
     
     
@@ -253,12 +254,13 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : iPhone_StatusBar_Height
         let iphonex_bottomoffset = is_iPhoneX ? iPhoneX_Portrait_Bottom_Height : 0
         let frame = CGRect(
-            x: screenbounds.origin.x,
+            x: screenbounds.origin.x + self.readerConfig.PagePaddingLeft,
             y: screenbounds.origin.y + iphonex_topoffset ,
-            width: screenbounds.width,
+            width: screenbounds.width  - self.readerConfig.PagePaddingLeft
+                - self.readerConfig.PagePaddingRight,
             height: screenbounds.height - iphonex_topoffset - iphonex_bottomoffset
         )
-        myepub_debugprint(frame)
+        myepub_debugprint("ReaderCenterViewFrame =\(frame)")
         return frame
     }
     
@@ -442,7 +444,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         // Page progressive direction
         self.setCollectionViewProgressiveDirection()
-        
 
         /**
          *  This delay is needed because the page will not be ready yet
@@ -464,7 +465,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                 }
             }
             let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: pageOffset), CGPoint(x: pageOffset, y: 0), CGPoint(x: 0, y: pageOffset))
-            myepub_debugprint(pageOffsetPoint)
+            myepub_debugprint("setScrollDirection:\(pageOffsetPoint) ")
             pageScrollView.setContentOffset(pageOffsetPoint, animated: true)
             
             //横読する時に、Pageのyはおかしい時に、修正する
@@ -722,29 +723,26 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 
-    // MARK: - Page
-
+    // MARK: - Page size / collectionview screen size
     func setPageSize(_ orientation: UIInterfaceOrientation) {
+        let collectionview_screensize = ReaderCenterViewFrame()
         guard orientation.isPortrait else {
-            if screenBounds.size.width > screenBounds.size.height {
-                self.pageWidth = screenBounds.size.width
-                self.pageHeight = screenBounds.size.height
+            if collectionview_screensize.size.width > collectionview_screensize.size.height {
+                self.pageWidth = collectionview_screensize.size.width
+                self.pageHeight = collectionview_screensize.size.height
             } else {
-                self.pageWidth = screenBounds.size.height
-                self.pageHeight = screenBounds.size.width
+                self.pageWidth = collectionview_screensize.size.height
+                self.pageHeight = collectionview_screensize.size.width
             }
             return
         }
-
-        if screenBounds.size.width < screenBounds.size.height {
-            self.pageWidth = screenBounds.size.width
-            self.pageHeight = screenBounds.size.height
+        if collectionview_screensize.size.width < collectionview_screensize.size.height {
+            self.pageWidth = collectionview_screensize.size.width
+            self.pageHeight = collectionview_screensize.size.height
         } else {
-            self.pageWidth = screenBounds.size.height
-            self.pageHeight = screenBounds.size.width
+            self.pageWidth = collectionview_screensize.size.height
+            self.pageHeight = collectionview_screensize.size.width
         }
-//        self.pageWidth = screenBounds.size.width - 10
-//        self.pageHeight = 541.0
     }
 
     func updateCurrentPage(_ page: FolioReaderPage? = nil, completion: (() -> Void)? = nil) {
@@ -926,7 +924,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 //        }
         
         
-        myepub_debugprint("page:  \(page) : webviewPageWidth : \(self.webviewPageWidth) ret:  \(ret) ")
+        myepub_debugprint("frameForPage page:\(page) : webviewPageWidth : \(self.webviewPageWidth) ret: \(ret) ")
         
         return ret
     }
@@ -1691,13 +1689,17 @@ extension FolioReaderCenter: FolioReaderChapterListDelegate {
     }
     
     func getScreenBounds() -> CGRect {
-        var bounds = view.frame
-        
-        if #available(iOS 11.0, *) {
-            bounds.size.height = bounds.size.height - view.safeAreaInsets.bottom
-        }
-        
-        return bounds
+        return view.bounds
+//        var bounds = view.frame
+//        if #available(iOS 11.0, *) {
+//            bounds.size.height = bounds.size.height - view.safeAreaInsets.bottom
+//        }
+//
+//        return bounds
+    }
+    
+    func getPageSize() -> CGRect{
+        return self.ReaderCenterViewFrame()
     }
     
 }
