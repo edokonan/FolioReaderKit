@@ -414,9 +414,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         // Page progressive direction
         self.setCollectionViewProgressiveDirection()
         
-        delay(0.2) {
-            self.setPageProgressiveDirection(currentPage)
-        }
 
         /**
          *  This delay is needed because the page will not be ready yet
@@ -440,9 +437,27 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             let pageOffsetPoint = self.readerConfig.isDirection(CGPoint(x: 0, y: pageOffset), CGPoint(x: pageOffset, y: 0), CGPoint(x: 0, y: pageOffset))
             myepub_debugprint(pageOffsetPoint)
             pageScrollView.setContentOffset(pageOffsetPoint, animated: true)
+            
+            //横読する時に、Pageのyはおかしい時に、修正する
+            self.resetPageFrame()
+            
+            //
+            self.setPageProgressiveDirection(currentPage)
+        }
+//        delay(0.2) {
+//            self.setPageProgressiveDirection(currentPage)
+//        }
+    }
+    //横読する時に、Pageのyはおかしい時に、修正する
+    func resetPageFrame(){
+        if let frame = self.currentPage?.frame,
+            frame.origin.y < 0,
+            self.readerConfig.scrollDirection == .horizontal{
+            debugPrint(frame)
+            self.currentPage?.frame.origin = CGPoint.init(x: frame.origin.x, y: 0)
         }
     }
-
+    
     // MARK: Status bar and Navigation bar
 
     func hideBars() {
