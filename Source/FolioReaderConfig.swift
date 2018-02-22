@@ -172,8 +172,8 @@ public struct ClassBasedOnClickListener {
     /// MARK: WebView Menu hide
     open var hideWebViewMenu = false
     
-    /// MARK: Should hide navigation bar on user tap
-    open var neverDisplayNavigationOnTap = false
+    /// MARK: don't use sdk navigation bar
+    open var doNotUseSDKNavigationBar = false
     
     /// MARK: Hidden HighLight Page
     open var hideHighlightPage = false

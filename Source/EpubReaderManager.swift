@@ -9,9 +9,10 @@ import UIKit
 
 
 @objc public protocol EpubReaderManagerDelegate {
-    func LoadFileFinished()
-    func PageChangedInChapter(TotalPage : Int, CurrentPage : Int)
-    func OnTapOverlayView()
+    @objc func LoadFileFinished()
+    @objc func PageChangedInChapter(TotalPage : Int, CurrentPage : Int)
+    @objc func OnTapOverlayView()
+    @objc func PageIsScrolling()
 }
 
 @objc open class EpubReaderManager: NSObject {
@@ -55,7 +56,7 @@ import UIKit
         
         //hidden Navigation On Tap
         config.shouldHideNavigationOnTap = true
-        config.neverDisplayNavigationOnTap = true
+        config.doNotUseSDKNavigationBar = true
         
         //hidden highLight page
         config.hideHighlightPage = false

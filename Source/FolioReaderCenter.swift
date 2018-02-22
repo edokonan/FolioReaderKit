@@ -166,6 +166,12 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.backgroundColor = background
 //        collectionView.backgroundColor = UIColor.green
         collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+//            collectionView.automaticallyAdjustsScrollViewInsets = false
+            // Fallback on earlier versions
+        }
         enableScrollBetweenChapters(scrollEnabled: true)
         view.addSubview(collectionView)
 
@@ -249,6 +255,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     
     //iphonex (0,44,375,714)
     //else (0,20,375,714)
+    //MARK: Set CenterView Frame
     func ReaderCenterViewFrame() -> CGRect {
         let screenbounds = UIScreen.main.bounds
         let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : iPhone_StatusBar_Height
@@ -508,15 +515,11 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         self.updateBarsStatus(false)
     }
 
-    func toggleBars() {
-        self.managerDelegate?.OnTapOverlayView()
+    func toggleBars() {        
         guard self.readerConfig.shouldHideNavigationOnTap == true else {
             return
         }
-        if self.readerConfig.neverDisplayNavigationOnTap == true{
-            return
-        }
-        
+
         let shouldHide = !self.navigationController!.isNavigationBarHidden
         if shouldHide == false {
             self.configureNavBar()
@@ -1380,6 +1383,10 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         }
 
         scrollScrubber?.scrollViewWillBeginDragging(scrollView)
+        
+        if self.readerConfig.doNotUseSDKNavigationBar == true{
+            self.managerDelegate?.PageIsScrolling()
+        }
     }
 
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {

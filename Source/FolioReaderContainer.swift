@@ -138,18 +138,25 @@ open class FolioReaderContainer: UIViewController {
         self.readerConfig.shouldHideNavigationOnTap = ((hideBars == true) ? true : self.readerConfig.shouldHideNavigationOnTap)
 
         self.centerViewController = FolioReaderCenter(withContainer: self)
-
-        if let rootViewController = self.centerViewController {
-            self.centerNavigationController = UINavigationController(rootViewController: rootViewController)
-        }
-
-    self.centerNavigationController?.setNavigationBarHidden(self.readerConfig.shouldHideNavigationOnTap, animated: false)
         
-        if let _centerNavigationController = self.centerNavigationController {
-            self.view.addSubview(_centerNavigationController.view)
-            self.addChildViewController(_centerNavigationController)
+        if self.readerConfig.doNotUseSDKNavigationBar == true{
+            if let rootViewController = self.centerViewController {
+                self.view.addSubview((rootViewController.view)!)
+                self.addChildViewController(rootViewController)
+            }
+        }else{
+            if let rootViewController = self.centerViewController {
+                self.centerNavigationController = UINavigationController(rootViewController: rootViewController)
+            }
+            
+        self.centerNavigationController?.setNavigationBarHidden(self.readerConfig.shouldHideNavigationOnTap, animated: false)
+            
+            if let _centerNavigationController = self.centerNavigationController {
+                self.view.addSubview(_centerNavigationController.view)
+                self.addChildViewController(_centerNavigationController)
+            }
+            self.centerNavigationController?.didMove(toParentViewController: self)
         }
-        self.centerNavigationController?.didMove(toParentViewController: self)
 
         if (self.readerConfig.hideBars == true) {
             self.readerConfig.shouldHideNavigationOnTap = false

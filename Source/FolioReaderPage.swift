@@ -157,7 +157,7 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
             height: bounds.height
         )
         self.readerConfig.WebViewFrame = frame
-        myepub_debugprint(self.readerConfig.WebViewFrame)
+        myepub_debugprint("WebViewFrame=\(self.readerConfig.WebViewFrame) ")
         return self.readerConfig.WebViewFrame!
     }
     
@@ -490,6 +490,11 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
     @objc open func handleTapGesture(_ recognizer: UITapGestureRecognizer) {
         self.delegate?.pageTap?(recognizer)
         
+        //when click view，call OnTapOverlayView
+        if self.readerConfig.doNotUseSDKNavigationBar == true{
+            self.folioReader.readerCenter?.managerDelegate?.OnTapOverlayView()
+        }
+
         if let _navigationController = self.folioReader.readerCenter?.navigationController, (_navigationController.isNavigationBarHidden == true) {
             let selected = webView?.js("getSelectedText()")
             
