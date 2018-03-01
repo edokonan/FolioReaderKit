@@ -360,18 +360,17 @@ open class FolioReaderWebView: UIWebView {
                     scrollView.bounces = false
                     
                     // MARK: Page Settings
-                    self.readerConfig.PagePaddingLeft = 10
-                    self.readerConfig.PagePaddingRight = 10
-                    self.readerConfig.PagePaddingTop = 20
-                    self.readerConfig.PagePaddingBottom = 20
+//                    self.readerConfig.PagePaddingLeft = 0
+//                    self.readerConfig.PagePaddingRight = 0
+//                    self.readerConfig.PagePaddingTop =
+//                    self.readerConfig.PagePaddingBottom = 20
                     break
             case .horizontal:
                     SetPageScrollDirectionWhenHorizontal()
-                    
-                    self.readerConfig.PagePaddingLeft = 10
-                    self.readerConfig.PagePaddingRight = 10
-                    self.readerConfig.PagePaddingTop = 20
-                    self.readerConfig.PagePaddingBottom = 20
+                    self.readerConfig.PagePaddingLeft = 0
+                    self.readerConfig.PagePaddingRight = 0
+                    self.readerConfig.PagePaddingTop = 0
+                    self.readerConfig.PagePaddingBottom = 0
                     break
             }
         

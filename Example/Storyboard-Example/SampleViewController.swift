@@ -108,16 +108,18 @@ class SampleViewController: UIViewController {
     
 }
 extension SampleViewController:EpubReaderManagerDelegate{
+    func PageIsScrolling() {
+        
+    }
+    
     func LoadFileFinished() {
         
     }
     func PageChangedInChapter(TotalPage: Int, CurrentPage: Int) {
         print("------PageChangedInChapter--------\(CurrentPage)/\(TotalPage)")
-
     }
     
     func OnTapOverlayView() {
         print("------OnTapOverlayView--------")
-
     }
 }

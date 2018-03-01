@@ -128,11 +128,11 @@ public struct ClassBasedOnClickListener {
     /// Media overlay or TTS selection color
     open lazy var mediaOverlayColor: UIColor! = self.tintColor
 
-    // MARK: Page Settings
-    open var PagePaddingLeft:CGFloat = 10
-    open var PagePaddingRight:CGFloat = 10
-    open var PagePaddingTop:CGFloat = 20
-    open var PagePaddingBottom:CGFloat = 20
+    // MARK: WebPage View Settings
+    open var PagePaddingLeft:CGFloat = 0.0
+    open var PagePaddingRight:CGFloat = 0.0
+    open var PagePaddingTop:CGFloat = 0.0
+    open var PagePaddingBottom:CGFloat = 0.0
     open var WebViewFrame:CGRect?
     
     // MARK: Page BackGroudColor For TestMode
