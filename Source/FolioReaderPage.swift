@@ -81,12 +81,14 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         if webView == nil {
             webView = FolioReaderWebView(frame: webViewFrame(), readerContainer: readerContainer)
             webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            webView?.sizeToFit()
+//            webView?.scrollView.
 //            webView?.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleLeftMargin,.flexibleTopMargin,.flexibleRightMargin,.flexibleBottomMargin]
             webView?.dataDetectorTypes = .link
 //            webView?.scrollView.showsHorizontalScrollIndicator = false
 //            webView?.scrollView.showsVerticalScrollIndicator = true
-            webView?.scrollView.showsVerticalScrollIndicator = true
-            webView?.scrollView.showsHorizontalScrollIndicator = true
+            webView?.scrollView.showsVerticalScrollIndicator = false
+            webView?.scrollView.showsHorizontalScrollIndicator = false
             webView?.backgroundColor = .clear
             self.contentView.addSubview(webView!)
             

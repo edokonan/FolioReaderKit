@@ -111,6 +111,11 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
 
         book.name = bookName
         try readContainer(with: bookBasePath)
+        
+        // encryp epub
+        if needsUnzip {
+            try encrypEpubFile(with: bookBasePath)
+        }
         try readOpf(with: bookBasePath)
         return self.book
     }
@@ -216,6 +221,34 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
         }
     }
 
+    /// Read and parse .opf file.
+    ///
+    /// - Parameter bookBasePath: The base book path
+    /// - Throws: `FolioReaderError`
+    private func encrypEpubFile(with bookBasePath: String) throws {
+        let opfPath = bookBasePath.appendingPathComponent(book.opfResource.href)
+        let opfData = try Data(contentsOf: URL(fileURLWithPath: opfPath), options: .alwaysMapped)
+        let xmlDoc = try AEXMLDocument(xml: opfData)
+        
+
+        // Parse and save each "manifest item"
+        xmlDoc.root["manifest"]["item"].all?.forEach {
+            let resource = FRResource()
+            resource.id = $0.attributes["id"]
+            resource.properties = $0.attributes["properties"]
+            resource.href = $0.attributes["href"]
+            resource.fullHref = resourcesBasePath.appendingPathComponent(resource.href).removingPercentEncoding
+            resource.mediaType = MediaType.by(name: $0.attributes["media-type"] ?? "", fileName: resource.href)
+            resource.mediaOverlay = $0.attributes["media-overlay"]
+            
+            // if a .smil file is listed in resources, go parse that file now and save it on book model
+            if (resource.mediaType == .xhtml && resource.properties != "nav") {
+                RNEncryptorEpubFile.shared.encrypFile(filePath: resource.fullHref, toPath: resource.fullHref)
+            }
+        }
+    }
+
+    
     /// Reads and parses a .smil file.
     ///
     /// - Parameter resource: A `FRResource` to read the smill

@@ -581,9 +581,16 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         // Configure the cell
         let resource = self.book.spine.spineReferences[indexPath.row].resource
-        guard var html = try? String(contentsOfFile: resource.fullHref, encoding: String.Encoding.utf8) else {
+        
+//        guard var html = try? String(contentsOfFile: resource.fullHref, encoding: String.Encoding.utf8) else {
+//            return cell
+//        }
+        myepub_debugprint("--------decry html-------------")
+        guard var data = try? Data.init(contentsOf: URL.init(fileURLWithPath: resource.fullHref)) else {
             return cell
         }
+        var html = RNEncryptorEpubFile.shared.decryptData(data: data)
+        myepub_debugprint(html)
 
         let mediaOverlayStyleColors = "\"\(self.readerConfig.mediaOverlayColor.hexString(false))\", \"\(self.readerConfig.mediaOverlayColor.highlightColor().hexString(false))\""
 
