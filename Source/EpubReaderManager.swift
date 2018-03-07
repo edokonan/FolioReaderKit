@@ -61,8 +61,12 @@ import UIKit
         //hidden highLight page
         config.hideHighlightPage = false
         
-        
-        
+//        //余白
+//        config.PagePaddingLeft = 0.0
+//        config.PagePaddingRight = 50.0
+//        config.PagePaddingTop = 0.0
+//        config.PagePaddingBottom = 0.0
+
         //Print the chapter ID if one was clicked
         let listener = ClassBasedOnClickListener(schemeName: "chaptertapped", querySelector: ".chapter", attributeName: "id", onClickAction: { (attributeContent: String?, touchPointRelativeToWebView: CGPoint?) in
 //            self.managerDelegate?.OnTapOverlayView()
@@ -70,6 +74,12 @@ import UIKit
         })
         config.classBasedOnClickListeners.append(listener)
         novelVC  = FolioReaderContainer.init(withConfig: config, folioReader: reader!, epubPath: bookPath, removeEpub: false)
+    }
+    @objc public func setPagePadding(left: CGFloat,right:CGFloat,top: CGFloat, bottom: CGFloat){
+        config.PagePaddingLeft = left
+        config.PagePaddingRight = right
+        config.PagePaddingTop = top
+        config.PagePaddingBottom = bottom
     }
     
     @objc public func openBook(path: String?){
@@ -108,10 +118,10 @@ import UIKit
     }
     
     @objc public  func showChapterList(){
-        novelVC?.centerViewController?.readerContainer?.centerViewController?.showChapterList()
+    novelVC?.centerViewController?.readerContainer?.centerViewController?.showChapterList()
     }
     @objc public func showFontsMenu(){
-        novelVC?.centerViewController?.readerContainer?.centerViewController?.showFontsMenu()
+    novelVC?.centerViewController?.readerContainer?.centerViewController?.showFontsMenu()
     }
     @objc open func movetoPageNum(num:Int,totalpage:Int) {
         self.reader?.movetoPageNum(num: num, totalpage: totalpage)

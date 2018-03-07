@@ -358,7 +358,6 @@ open class FolioReaderWebView: UIWebView {
                     paginationMode = .topToBottom
                     paginationBreakingMode = .page
                     scrollView.bounces = false
-                    
                     // MARK: Page Settings
 //                    self.readerConfig.PagePaddingLeft = 0
 //                    self.readerConfig.PagePaddingRight = 0
@@ -367,10 +366,10 @@ open class FolioReaderWebView: UIWebView {
                     break
             case .horizontal:
                     SetPageScrollDirectionWhenHorizontal()
-                    self.readerConfig.PagePaddingLeft = 0
-                    self.readerConfig.PagePaddingRight = 0
-                    self.readerConfig.PagePaddingTop = 0
-                    self.readerConfig.PagePaddingBottom = 0
+//                    self.readerConfig.PagePaddingLeft = 0
+//                    self.readerConfig.PagePaddingRight = 0
+//                    self.readerConfig.PagePaddingTop = 0
+//                    self.readerConfig.PagePaddingBottom = 0
                     break
             }
         

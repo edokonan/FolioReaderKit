@@ -258,12 +258,13 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     //MARK: Set CenterView Frame
     func ReaderCenterViewFrame() -> CGRect {
         let screenbounds = UIScreen.main.bounds
-        let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : iPhone_StatusBar_Height
+//        let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : iPhone_StatusBar_Height
+        let iphonex_topoffset = is_iPhoneX ? iPhoneX_Portrait_Top_Height : 0
         let iphonex_bottomoffset = is_iPhoneX ? iPhoneX_Portrait_Bottom_Height : 0
         let frame = CGRect(
             x: screenbounds.origin.x + self.readerConfig.PagePaddingLeft,
             y: screenbounds.origin.y + iphonex_topoffset ,
-            width: screenbounds.width  - self.readerConfig.PagePaddingLeft
+            width: screenbounds.width - self.readerConfig.PagePaddingLeft
                 - self.readerConfig.PagePaddingRight,
             height: screenbounds.height - iphonex_topoffset - iphonex_bottomoffset
         )
