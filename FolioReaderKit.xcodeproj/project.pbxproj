@@ -95,7 +95,9 @@
 		3A27F0C71FD9C33A00D84A57 /* Highlight+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A958F211D397BE900D56699 /* Highlight+Helper.swift */; };
 		3A27F0C81FD9C33A00D84A57 /* Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A958F231D397BE900D56699 /* Highlight.swift */; };
 		3AD5EEB91D9433C100E42810 /* FolioReaderWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD5EEB81D9433C100E42810 /* FolioReaderWebView.swift */; };
-		55998483204D2048008AFC2D /* FRMediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55998482204D2047008AFC2D /* FRMediaType.swift */; };
+		556E22652064AB0A000B9E61 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E22642064AB0A000B9E61 /* MediaType.swift */; };
+		556E22672064AB93000B9E61 /* RNEncryptorEpubFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E22662064AB93000B9E61 /* RNEncryptorEpubFile.swift */; };
+		556E226A2064ACAB000B9E61 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 556E22692064ACAB000B9E61 /* Cartfile */; };
 		5599848B204D23BD008AFC2D /* iphonex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599848A204D23BD008AFC2D /* iphonex.swift */; };
 		5599848D204D23C7008AFC2D /* EpubReaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599848C204D23C7008AFC2D /* EpubReaderManager.swift */; };
 		B0D6990F1D035FA2003B4CCD /* FolioReaderKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B0D6990E1D035FA2003B4CCD /* FolioReaderKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -177,7 +179,9 @@
 		3A27F08A1FD9BE5800D84A57 /* FolioReaderUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolioReaderUserDefaults.swift; sourceTree = "<group>"; };
 		3A27F08B1FD9BE5800D84A57 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3AD5EEB81D9433C100E42810 /* FolioReaderWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolioReaderWebView.swift; sourceTree = "<group>"; };
-		55998482204D2047008AFC2D /* FRMediaType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FRMediaType.swift; sourceTree = "<group>"; };
+		556E22642064AB0A000B9E61 /* MediaType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaType.swift; sourceTree = "<group>"; };
+		556E22662064AB93000B9E61 /* RNEncryptorEpubFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNEncryptorEpubFile.swift; sourceTree = "<group>"; };
+		556E22692064ACAB000B9E61 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		5599848A204D23BD008AFC2D /* iphonex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iphonex.swift; sourceTree = "<group>"; };
 		5599848C204D23C7008AFC2D /* EpubReaderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpubReaderManager.swift; sourceTree = "<group>"; };
 		B0D6990B1D035FA2003B4CCD /* FolioReaderKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FolioReaderKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +242,7 @@
 		1A958F031D397BE900D56699 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				556E22662064AB93000B9E61 /* RNEncryptorEpubFile.swift */,
 				5599848C204D23C7008AFC2D /* EpubReaderManager.swift */,
 				1A958F131D397BE900D56699 /* FolioReaderConfig.swift */,
 				1A958F041D397BE900D56699 /* EPUBCore */,
@@ -273,7 +278,7 @@
 			children = (
 				1A958F051D397BE900D56699 /* FRBook.swift */,
 				1A958F061D397BE900D56699 /* FREpubParser.swift */,
-				55998482204D2047008AFC2D /* FRMediaType.swift */,
+				556E22642064AB0A000B9E61 /* MediaType.swift */,
 				1A958F081D397BE900D56699 /* FRMetadata.swift */,
 				1A958F091D397BE900D56699 /* FRResource.swift */,
 				1A958F0A1D397BE900D56699 /* FRResources.swift */,
@@ -363,6 +368,7 @@
 		B0D699011D035FA1003B4CCD = {
 			isa = PBXGroup;
 			children = (
+				556E22692064ACAB000B9E61 /* Cartfile */,
 				1A9590161D397CAF00D56699 /* FolioReaderKit.podspec */,
 				B0D6990D1D035FA2003B4CCD /* FolioReaderKit */,
 				B0D699191D035FA2003B4CCD /* FolioReaderKitTests */,
@@ -535,6 +541,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556E226A2064ACAB000B9E61 /* Cartfile in Resources */,
 				1A958FBA1D397BE900D56699 /* Lora-Italic.ttf in Resources */,
 				1A958FB21D397BE900D56699 /* Andada-Italic.otf in Resources */,
 				1A958FBF1D397BE900D56699 /* Raleway-Regular.ttf in Resources */,
@@ -576,6 +583,7 @@
 				1A958F9F1D397BE900D56699 /* FolioReaderConfig.swift in Sources */,
 				1A958FA51D397BE900D56699 /* FolioReaderPage.swift in Sources */,
 				B0D69CC91D0387F7003B4CCD /* SMSegment.swift in Sources */,
+				556E22672064AB93000B9E61 /* RNEncryptorEpubFile.swift in Sources */,
 				B0D69CCA1D0387F7003B4CCD /* SMSegmentView.swift in Sources */,
 				1A958FA01D397BE900D56699 /* FolioReaderContainer.swift in Sources */,
 				1A958FA81D397BE900D56699 /* FolioReaderSharingProvider.swift in Sources */,
@@ -597,11 +605,11 @@
 				1A958F9D1D397BE900D56699 /* FolioReaderChapterList.swift in Sources */,
 				1A958F951D397BE900D56699 /* FRResource.swift in Sources */,
 				1A958F9B1D397BE900D56699 /* FolioReaderAudioPlayer.swift in Sources */,
-				55998483204D2048008AFC2D /* FRMediaType.swift in Sources */,
 				1A958F9E1D397BE900D56699 /* FolioReaderChapterListCell.swift in Sources */,
 				1A958F9A1D397BE900D56699 /* FRTocReference.swift in Sources */,
 				1A958F911D397BE900D56699 /* FRBook.swift in Sources */,
 				1A958F941D397BE900D56699 /* FRMetadata.swift in Sources */,
+				556E22652064AB0A000B9E61 /* MediaType.swift in Sources */,
 				1A9590131D397BE900D56699 /* ScrollScrubber.swift in Sources */,
 				B0D69CC81D0387F7003B4CCD /* HADiscreteSlider.swift in Sources */,
 				1A65DDD51DA744410033C277 /* QuoteImage.swift in Sources */,

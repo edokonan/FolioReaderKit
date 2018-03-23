@@ -5,3 +5,5 @@ github "tadija/AEXML" == 4.0
 github "ArtSabintsev/FontBlaster" == 3.0.0
 github "jessesquires/JSQWebViewController" ~> 5.0
 github "realm/realm-cocoa" ~> 3.0.2
+github "RNCryptor"
+
