@@ -14,7 +14,7 @@ import UIKit
     @objc func OnTapOverlayView()
     @objc func PageIsScrolling()
     @objc func DecryptHtml(data: Data) -> String
-    
+    @objc func DecryptTocData(data: Data) -> Data
 }
 
 @objc open class EpubReaderManager: NSObject {

@@ -20,6 +20,7 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
     private var resourcesBasePath = ""
     private var shouldRemoveEpub = false
     private var epubPathToRemove: String?
+    private var readerContainer: FolioReaderContainer?
 
     /// Parse the Cover Image from an epub file.
     ///
@@ -78,10 +79,11 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
     ///   - unzipPath: Path to unzip the compressed epub.
     /// - Returns: `FRBook` Object
     /// - Throws: `FolioReaderError`
-    func readEpub(epubPath withEpubPath: String, removeEpub: Bool = false, unzipPath: String? = nil) throws -> FRBook {
+    func readEpub(epubPath withEpubPath: String, removeEpub: Bool = false, unzipPath: String? = nil, readerContainer: FolioReaderContainer? = nil) throws -> FRBook {
         epubPathToRemove = withEpubPath
         shouldRemoveEpub = removeEpub
-
+        self.readerContainer = readerContainer
+        
         var isDir: ObjCBool = false
         let fileManager = FileManager.default
         let bookName = withEpubPath.lastPathComponent
@@ -305,7 +307,10 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
                     tocItems = itemsList
                 }
             } else {
-                let tocData = try Data(contentsOf: URL(fileURLWithPath: tocPath), options: .alwaysMapped)
+                var tocData = try Data(contentsOf: URL(fileURLWithPath: tocPath), options: .alwaysMapped)
+                if self.readerContainer?.readerConfig.isEncrypt == true{
+                    tocData = (self.readerContainer?.centerViewController?.managerDelegate?.DecryptTocData(data: tocData))!
+                }
                 let xmlDoc = try AEXMLDocument(xml: tocData)
 
                 if let nav = xmlDoc.root["body"]["nav"].first, let itemsList = nav["ol"]["li"].all {
