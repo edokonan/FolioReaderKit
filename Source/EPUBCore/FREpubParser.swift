@@ -243,7 +243,7 @@ class FREpubParser: NSObject, SSZipArchiveDelegate {
             
             // if a .smil file is listed in resources, go parse that file now and save it on book model
             if (resource.mediaType == .xhtml && resource.properties != "nav") {
-                RNEncryptorEpubFile.shared.encrypFile(filePath: resource.fullHref, toPath: resource.fullHref)
+//                RNEncryptorEpubFile.shared.encrypFile(filePath: resource.fullHref, toPath: resource.fullHref)
             }
         }
     }
