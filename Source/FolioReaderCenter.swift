@@ -589,9 +589,16 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         guard var data = try? Data.init(contentsOf: URL.init(fileURLWithPath: resource.fullHref)) else {
             return cell
         }
-        var html = RNEncryptorEpubFile.shared.decryptData(data: data)
+        //var html = RNEncryptorEpubFile.shared.decryptData(data: data)
+        //var html = RNEncryptorEpubFile.shared.decryptAES128(data: data, key: "7f4b1349b2d444ce", iv: "00000000000000000000000000000000")
+        var html = ""
+        if self.readerConfig.isEncrypt{
+            html = self.managerDelegate!.DecryptHtml(data: data)
+        }else{
+            html = String.init(data: data, encoding: .utf8)!
+        }
         myepub_debugprint(html)
-
+        
         let mediaOverlayStyleColors = "\"\(self.readerConfig.mediaOverlayColor.hexString(false))\", \"\(self.readerConfig.mediaOverlayColor.highlightColor().hexString(false))\""
 
         // Inject CSS

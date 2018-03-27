@@ -38,11 +38,12 @@ class SampleViewController: UIViewController {
 //        })
 //        config.classBasedOnClickListeners.append(listener)
 //
+//        bookPath = Bundle.main.path(forResource: "novel_epub_xhtml_[key]7f4b1349b2d444ce", ofType: "epub")
         bookPath = Bundle.main.path(forResource: "The Silver Chair", ofType: "epub")
         epubMng = EpubReaderManager.init(bookPath: bookPath!)
+        epubMng?.config.isEncrypt = true
         epubMng?.displayInView(vc: self,ContainerView: ContainerView)
         epubMng?.setEpubManagerDelegate(delegate: self)
-        
         
 //        epubMng = EpubReaderManager.init(bookPath: bookPath!)
 //        epubMng?.displayInView(vc: self,ContainerView: ContainerView)
@@ -108,6 +109,11 @@ class SampleViewController: UIViewController {
     
 }
 extension SampleViewController:EpubReaderManagerDelegate{
+    func DecryptHtml(data: Data) -> String {
+        let str = String.init(data: data, encoding: .utf8)
+        return str!
+    }
+    
     func PageIsScrolling() {
         
     }

@@ -6,7 +6,7 @@ PODS:
     - JSQWebViewController (= 6.0.0)
     - MenuItemKit (= 3.0.0)
     - RealmSwift (= 3.0.2)
-    - RNCryptor
+    - RNCryptor (= 5.0.2)
     - SSZipArchive (= 2.1.1)
     - ZFDragableModalTransition (= 0.6)
   - FontBlaster (4.0.1)
@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AEXML: 5ebafc1b75e0bcf0f1b09b8ca8fed2d5a199479b
-  FolioReaderKit: 3e90594aebf5fd13dc20dda0aa5f9465fb601f66
+  FolioReaderKit: e753bf9a664a79258e278285a979146bbbec43b7
   FontBlaster: 84229df8e3a7a6dacb190565bc543747a0c323f9
   JSQWebViewController: 51041569b75d19dbb6b7fe0b7ae053c32409a9be
   MenuItemKit: d9b539b28fdbbd7980d6f3668b9cd6daefeabd9b

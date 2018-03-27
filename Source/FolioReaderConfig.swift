@@ -159,6 +159,9 @@ public struct ClassBasedOnClickListener {
             }
         }
     }
+    // MARK: Page Settings
+    @objc open var isEncrypt = false
+    
     /// MARK: PageIndicator View
     open var hideSliderView = true
     

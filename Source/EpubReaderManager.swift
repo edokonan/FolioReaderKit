@@ -13,6 +13,8 @@ import UIKit
     @objc func PageChangedInChapter(TotalPage : Int, CurrentPage : Int)
     @objc func OnTapOverlayView()
     @objc func PageIsScrolling()
+    @objc func DecryptHtml(data: Data) -> String
+    
 }
 
 @objc open class EpubReaderManager: NSObject {
